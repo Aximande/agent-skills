@@ -10,6 +10,10 @@ and any compatible tool.)*
 | Skill | Description |
 |---|---|
 | [`cleanup-pass`](skills/cleanup-pass/SKILL.md) | Repasse de nettoyage sur un repo fonctionnel issu de vibecoding : maximise la qualité (code plus court, dead code retiré, docstrings publiques) à validité constante (aucune nouvelle failure tests/typecheck/build). Python, TS/JS, notebooks. |
+| [`doc-ingest`](skills/doc-ingest/SKILL.md) | Amène des documents (PDF, DOCX, PPTX, XLSX) dans le contexte agent en markdown propre via markitdown — avec la logique de décision lecture native vs conversion. |
+
+Skills à venir : voir la [ROADMAP](ROADMAP.md) (`safety-net`, `ship-check`,
+`docs-pass`, `spec-lite`).
 
 Chaque skill est accompagné de son protocole de mesure (`RODAGE.md`) : grille de
 débrief, KPI (taux d'acceptation par commit ≥ 80 %), checklist de compliance.
