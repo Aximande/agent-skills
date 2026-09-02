@@ -32,7 +32,12 @@ Arguments : `/safety-net [--paths <globs>]`
 1. **Working tree propre** ; sinon stop, demander commit/stash.
 2. Packages par manifests ; en monorepo, chaque package est autonome.
 3. **Tests existants conservés tels quels** — seule la surface non couverte
-   est visée.
+   est visée. Exception, le **harnais mort** : si les suites échouent au
+   *chargement* (config runner cassée, alias non résolu — 0 test exécuté),
+   réparer l'infra de test EST le travail du filet : c'est restaurer la
+   couverture sans toucher ni au code produit ni aux tests. Les tests
+   restaurés qui sortent rouges rejoignent la baseline (liste nommée
+   `fichier :: test`), jamais réparés.
 4. Runner : celui du repo s'il existe, sinon stdlib (`unittest` Python,
    `node:test` TS/JS) — zéro dépendance ajoutée, à une exception près :
    l'enregistrement HTTP (§1), signalé au rapport.

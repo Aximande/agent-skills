@@ -53,8 +53,11 @@ Arguments : `/cleanup-pass [--paths <globs>] [--yolo]`
    un sous-repo autonome : sa chaîne d'outils, son gate. Un package rouge ne
    bloque pas les autres.
 2. Détecter le filet par package : tests > typecheck/build > rien.
-3. Enregistrer la **baseline** : lancer le filet, noter la liste exacte des
-   failures existantes.
+3. Enregistrer la **baseline** : lancer le filet et noter la liste **nommée**
+   des failures (`fichier :: test` — jamais un simple comptage, deux failures
+   peuvent se compenser). Purger d'abord les artefacts générés (`.next/`,
+   `dist/`, `__pycache__`…) : un build lancé pendant la passe pollue le
+   différentiel de faux rouges.
 4. Lire la config repo (ruff/black/eslint/prettier/mypy/tsconfig) : **la config
    du repo gagne toujours** sur les défauts du §Outils — le style maison est un
    comportement à préserver comme un autre.
@@ -140,9 +143,14 @@ Filet par package, ordre de préférence :
 3. sinon aucun filet → **mode rapport** : zéro commit sur ce package, toutes
    les trouvailles partent au rapport, l'utilisateur est prévenu explicitement.
 
-Le gate est **différentiel** : vert = aucune failure absente de la baseline.
-Les tests déjà rouges au préflight sont listés au rapport et laissés rouges —
-les réparer changerait le comportement.
+Le gate est **différentiel** : vert = aucune failure absente de la liste
+nommée de la baseline. Les tests déjà rouges au préflight sont listés au
+rapport et laissés rouges — les réparer changerait le comportement. Mesurer
+sur arbre purgé des artefacts générés, comme au préflight.
+
+Commits : n'ajouter que les chemins du lot — jamais `git add -A` depuis une
+racine (de monorepo surtout) : lockfiles régénérés, sorties d'outils et
+rapports s'y engouffrent et noient le diff.
 
 ## Outils par défaut (quand le repo n'a pas de config)
 
