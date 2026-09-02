@@ -43,7 +43,11 @@ Arguments : `/safety-net [--paths <globs>]`
    Composants UI : exclus (snapshots fragiles = filet qui crie faux).
    Si un graphe graphify existe (`graphify-out/graph.json`), ordonner à
    l'intérieur de chaque catégorie par degré du nœud (god nodes d'abord) —
-   la centralité mesure ce qui casse tout si ça change.
+   la centralité mesure ce qui casse tout si ça change. Les « fonctions
+   pures » s'y repèrent mécaniquement : modules sans arête `imports_from`
+   vers le framework (react/vue/express…) ; parmi eux, ceux sans I/O
+   (fetch, DB, fs) se caractérisent trivialement — et c'est là que les
+   tests existants d'un repo gravitent déjà naturellement.
 6. Branche `safety-net/<YYYY-MM-DD>`.
 
 Fini quand : la liste des cibles retenues ET exclues (chacune avec sa raison)
