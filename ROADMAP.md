@@ -25,4 +25,21 @@ d'acceptation avant le code), [BMAD](https://github.com/bmad-code-org/bmad-metho
 modifiable + une métrique + un budget fixe + keep/discard ; « program.md is
 essentially a super lightweight skill »), [rendergit](https://github.com/karpathy/rendergit)
 (repo → une page, intégré à doc-ingest), [llm-council](https://github.com/karpathy/llm-council)
-(délibération multi-LLM — piste future pour une revue en second avis).
+(délibération multi-LLM — piste future pour une revue en second avis ;
+anonymiser les réponses pour juger sans favoritisme),
+[graphify](https://github.com/Graphify-Labs/graphify) (repo → graphe de
+connaissances interrogeable, AST déterministe local, chaque arête taguée
+EXTRACTED/INFERRED).
+
+## Intégrations outillées envisagées (après pilote graphify sur un vrai repo)
+
+- **cleanup-pass couche 2** : preuve d'inatteignabilité du dead code par le
+  graphe (arêtes EXTRACTED = preuve ; INFERRED ou absence = doute → rapport)
+  au lieu du grep multi-angles.
+- **safety-net préflight** : ordre de ROI des cibles par centralité (degree)
+  des nœuds du graphe.
+- **install.sh** : adopter le pattern `--project` de graphify (install
+  par-repo committable en plus du global).
+- **Enforcement par hook plutôt que par consigne** (leur « strict mode » :
+  bloquer/rediriger une action au niveau harness) — la réponse structurelle
+  au constat de Karpathy « instructions in CLAUDE.md don't suffice ».
