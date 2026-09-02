@@ -102,11 +102,16 @@ couvrir, ou un trou documenté explicitement — jamais passé sous silence.
 
 ### 3. Livraison
 
-1. Rapport `.safety-net/rapport-<date>.md` (non commité) : cibles couvertes,
+1. **CI minimal commité avec le filet** (`.github/workflows/tests.yml`) : le
+   filet s'exécute sur chaque push/PR — un filet sans CI meurt en silence.
+   S'il existe des tests rouges en baseline, committer leur liste nommée
+   (`.github/jest-baseline.txt` ou équivalent) et comparer en CI : échec
+   seulement sur failure **nouvelle**.
+2. Rapport `.safety-net/rapport-<date>.md` (non commité) : cibles couvertes,
    exclusions motivées, sorties suspectes repérées, **score sabotage X/N**,
    la commande exacte pour lancer la suite.
-2. Validation utilisateur.
-3. Remote présent → push + PR draft, rapport en description. Le merge
+3. Validation utilisateur.
+4. Remote présent → push + PR draft, rapport en description. Le merge
    appartient à l'utilisateur. Commits sans Co-Authored-By ni mention d'IA.
 
 ## Après merge
