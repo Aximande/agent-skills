@@ -8,7 +8,7 @@ avec `doc-ingest` en utilitaire transverse.
 |---|---|---|
 | `cleanup-pass` | ✅ v1, rodée (video-trimmer, 31/08/2026) | Repasse qualité à validité constante |
 | `doc-ingest` | ✅ v1 | Documents (PDF/Office) → markdown pour le contexte agent (markitdown) |
-| `safety-net` | 🔨 en design (grilling) | Tests de caractérisation sur repo non testé — débloque le gate de cleanup-pass |
+| `safety-net` | ✅ v1 livrée (02/09/2026), à roder | Tests de caractérisation sur repo non testé — débloque le gate de cleanup-pass |
 | `ship-check` | 📋 backlog | Passe pré-publication : secrets (historique + tree), .gitignore, env, RLS Supabase, licence, visibilité |
 | `docs-pass` | 📋 backlog | README/quickstart dont chaque commande est réellement exécutée, CONTEXT.md pour la reprise |
 | `spec-lite` | 📋 backlog | Une page de critères d'acceptation avant de vibecoder (spec-kit allégé, moteur grilling) |
