@@ -3,8 +3,9 @@ name: doc-ingest
 description: >
   Amène des documents (PDF, DOCX, PPTX, XLSX, images) dans le contexte agent
   en markdown propre via markitdown. Use when: l'utilisateur donne un PDF ou
-  un document Office à lire, analyser, résumer ou convertir, ou veut « ce
-  PDF en contexte / en markdown ».
+  un document Office à lire, analyser, résumer ou convertir, veut « ce
+  PDF en contexte / en markdown », ou veut un repo entier aplati en une
+  page pour contexte LLM (rendergit).
 license: MIT
 ---
 
@@ -16,6 +17,7 @@ Décision d'abord, conversion ensuite :
 |---|---|
 | PDF court (≤ ~20 pages), usage unique dans la conversation | Lecture native du PDF (outil Read, param `pages`) — pas de conversion. |
 | PDF long, document Office (docx/pptx/xlsx), lot de fichiers, ou réutilisation prévue (grep, sessions futures, autres agents) | Convertir en `.md` avec markitdown, puis travailler sur le `.md`. |
+| Un repo entier à mettre en contexte (audit, revue, reprise d'un projet) | `rendergit <url-ou-chemin>` → une page HTML : vue humain (navigation, coloration) + vue LLM (texte CXML à coller en contexte). Install une fois : `uv tool install git+https://github.com/karpathy/rendergit` |
 
 ## Conversion
 

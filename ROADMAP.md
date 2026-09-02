@@ -20,4 +20,9 @@ Inspirations : [andrej-karpathy-skills](https://github.com/multica-ai/andrej-kar
 (les 4 principes), [mattpocock-skills](https://github.com/mattpocock) (grilling,
 writing-for-agents), [spec-kit](https://github.com/github/spec-kit) (critères
 d'acceptation avant le code), [BMAD](https://github.com/bmad-code-org/bmad-method)
-(QA avant merge, process scale-adaptive), [markitdown](https://github.com/microsoft/markitdown).
+(QA avant merge, process scale-adaptive), [markitdown](https://github.com/microsoft/markitdown),
+[autoresearch](https://github.com/karpathy/autoresearch) (boucle agent = un fichier
+modifiable + une métrique + un budget fixe + keep/discard ; « program.md is
+essentially a super lightweight skill »), [rendergit](https://github.com/karpathy/rendergit)
+(repo → une page, intégré à doc-ingest), [llm-council](https://github.com/karpathy/llm-council)
+(délibération multi-LLM — piste future pour une revue en second avis).
