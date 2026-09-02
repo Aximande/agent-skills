@@ -80,7 +80,12 @@ Par lot, dans l'ordre :
 - **Dead code prouvé** : supprimer seulement sur preuve d'inatteignabilité —
   vérifier entrypoints, exports, imports dynamiques, réflexion/DI, routes,
   templates, tests. Un simple « grep ne trouve rien » part au rapport, pas
-  au diff.
+  au diff. Si un graphe graphify existe (`graphify-out/graph.json`, ou
+  `graphify` installé), s'en servir comme instrument : symbole sans arête
+  entrante `EXTRACTED` depuis un entrypoint = preuve forte ; arête `INFERRED`
+  dans le chemin = doute → rapport. Limite dure : le graphe ne voit pas les
+  appels HTTP inter-langages — un endpoint sans arête entrante n'est PAS
+  prouvé mort, vérifier les routes appelées côté client.
 - **Duplication flagrante** → factoriser.
 - **Abstraction single-use** (wrapper, classe, indirection à un seul appelant)
   → inliner.

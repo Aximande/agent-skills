@@ -41,6 +41,9 @@ Arguments : `/safety-net [--paths <globs>]`
    2. fonctions pures publiques ;
    3. sorties CLI.
    Composants UI : exclus (snapshots fragiles = filet qui crie faux).
+   Si un graphe graphify existe (`graphify-out/graph.json`), ordonner à
+   l'intérieur de chaque catégorie par degré du nœud (god nodes d'abord) —
+   la centralité mesure ce qui casse tout si ça change.
 6. Branche `safety-net/<YYYY-MM-DD>`.
 
 Fini quand : la liste des cibles retenues ET exclues (chacune avec sa raison)
