@@ -72,6 +72,9 @@ package : `chore: format + lint (<package>)`.
 
 ### 2. Couche 2 — simplification à comportement constant
 
+Avant le premier lot, lire `NANO-STYLE.md` (à côté de ce fichier) : la cible
+visuelle du code d'arrivée et les gestes types, extraits du canon Karpathy.
+
 Par lot, dans l'ordre :
 
 - **Dead code prouvé** : supprimer seulement sur preuve d'inatteignabilité —
