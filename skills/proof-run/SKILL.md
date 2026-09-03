@@ -44,6 +44,12 @@ Deux rôles, jamais confondus :
 - **API** → curl ; corps de réponse + status en preuve.
 - **CLI** → le binaire construit ; stdout en preuve.
 
+Flux derrière un login : donner au vérificateur un moyen de session
+(compte de test + état de connexion minté une fois, noté dans
+`.proof-run/stack.md`). L'auth elle-même se vérifie une fois dans son
+propre run ; tout autre run recharge la session au lieu de re-payer la
+taxe login.
+
 ## 2. Verdict — boucle vérifier → corriger → re-vérifier
 
 Dispatcher un sous-agent vérificateur avec un prompt autoporteur : les
@@ -67,9 +73,12 @@ avec le dernier verdict.
 
 Après `works` : les checks codifiés du repo (tests, typecheck, build) avec
 notre gate différentiel — aucune failure absente de la **baseline nommée**
-(`fichier :: test`), mesurée sur arbre purgé des artefacts générés. Une
-assertion ne s'affaiblit jamais pour passer au vert. Si la correction d'un
-round a changé le comportement visible → re-vérifier (retour au 2).
+(`fichier :: test`), mesurée sur arbre purgé des artefacts générés. Un
+rouge nouveau est une information : classer d'abord — **vrai bug** (le
+produit a cassé), **test périmé** (contrat volontairement changé, confirmé
+par le diff), **flaky/env** — puis corriger la bonne chose ; une assertion
+ne s'affaiblit jamais pour passer au vert. Si la correction d'un round a
+changé le comportement visible → re-vérifier (retour au 2).
 
 ## 4. Livraison — la PR porte la preuve
 
@@ -91,6 +100,9 @@ avec sa preuve dans `evidence/`. Bornes strictes :
   l'utilisateur** — la prod d'autrui est hors limites, toujours.
 - Rate limiting : lecture du code + un envoi modéré (dizaines, pas
   milliers) ; jamais de volume réel sur une API payante.
+- Services externes (paiement, email) : clés de **test/sandbox**
+  obligatoires — un test refuse de se dérouler si une clé live est
+  détectée dans l'environnement.
 
 ## Règles
 

@@ -115,6 +115,11 @@ Redécoupage de modules, changement d'API interne, gros renommages,
 introduction du typage, tests manquants : consignés au rapport comme checklist
 de décisions, jamais appliqués dans cette passe.
 
+Une règle de goût revenue sur plusieurs lots (import interdit, couche qui
+fuit, taille de fichier) se propose au rapport en **lint custom au message
+remédiateur** (« X interdit ici — fais Y ») : le goût capturé une fois,
+appliqué mécaniquement à chaque run suivant.
+
 ### 4. Livraison
 
 1. **Rapport court** par catégorie : un item par lot avec son hash de commit,

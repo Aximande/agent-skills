@@ -12,7 +12,7 @@ Pipeline visé : **« du vibecode au shippable »** —
 | `safety-net` | ✅ v1 livrée (02/09/2026), à roder | Tests de caractérisation sur repo non testé — débloque le gate de cleanup-pass |
 | `ship-check` | ✅ v1 livrée (03/09/2026), à roder | Audit pré-publication GO/NO-GO : secrets, deps, hygiène+légal, RLS Supabase, surface vibecode (checklist des captures) |
 | `proof-run` | ✅ v1 livrée (03/09/2026), à roder | Preuve d'usage : vérificateur indépendant qui pilote la vraie app, verdict works/broken + preuve dans la PR ; `--checks` = bras dynamique de ship-check |
-| `docs-pass` | 📋 backlog | README/quickstart dont chaque commande est réellement exécutée, CONTEXT.md pour la reprise ; + audit du contexte agent : six bascules (règles→jugement, divulgation progressive, source unique…) et **quiz de connaissance** — 5–10 questions auxquelles les docs seuls doivent répondre (sans réponse = trou, fausse réponse = doc périmée) |
+| `docs-pass` | ✅ v1 livrée (03/09/2026), à roder | Chaque commande du README réellement exécutée + quiz de connaissance (les docs seuls répondent) + six bascules sur le contexte agent + doc de reprise |
 | `spec-lite` | 📋 backlog | Une page de critères d'acceptation avant de vibecoder (spec-kit allégé, moteur grilling) |
 
 Méthode par skill : design par grilling (rounds de décisions verrouillées) →
