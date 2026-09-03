@@ -32,12 +32,19 @@ backend…) — le rapport dit alors « N/A » avec la raison, jamais silence.
 
 ## Section 1 — Secrets
 
-`uvx gitleaks git` (historique complet) + `uvx gitleaks dir` (working tree).
+`gitleaks git` (historique complet) + `gitleaks dir` (working tree) —
+binaire Go : `brew install gitleaks`, ou release GitHub décompressée dans
+le scratchpad (uvx ne peut pas l'installer, ce n'est pas un paquet Python).
 En plus du scan : secret JWT/session vérifié présent au démarrage (absent =
 tokens forgeables), aucune clé **secrète** dans du code servi au client
 (seules les clés *publishable* Supabase/Firebase y ont leur place — c'est le
 RLS qui protège, pas la clé), aucun token/credential codé en dur.
 NO-GO : tout secret actif dans l'historique d'un repo destiné au public.
+Tester si une clé fuitée est encore active **sans jamais l'utiliser** :
+récupérer la clé actuelle par la voie légitime (API Management Supabase,
+dashboard du provider) et comparer localement — identique = pas de
+rotation. Une requête portant la clé fuitée est hors limites, même en
+lecture.
 
 ## Section 2 — Dépendances
 
