@@ -11,6 +11,7 @@ and any compatible tool.)*
 |---|---|
 | [`cleanup-pass`](skills/cleanup-pass/SKILL.md) | Repasse de nettoyage sur un repo fonctionnel issu de vibecoding : maximise la qualité (code plus court, dead code retiré, docstrings publiques) à validité constante (aucune nouvelle failure tests/typecheck/build). Python, TS/JS, notebooks. |
 | [`doc-ingest`](skills/doc-ingest/SKILL.md) | Amène des documents (PDF, DOCX, PPTX, XLSX) dans le contexte agent en markdown propre via markitdown, et un repo entier en une page via rendergit. |
+| [`proof-run`](skills/proof-run/SKILL.md) | Preuve d'usage d'une feature : un sous-agent vérificateur indépendant pilote la vraie app (agent-browser/curl/CLI), verdict works/broken, preuve embarquée dans la PR ; `--checks` exécute les tests dynamiques de ship-check. |
 | [`safety-net`](skills/safety-net/SKILL.md) | Pose un filet de tests de caractérisation sur un repo fonctionnel non testé (golden masters + preuve par sabotage) — débloque le gate de cleanup-pass. |
 | [`ship-check`](skills/ship-check/SKILL.md) | Audit pré-publication : secrets (historique git), dépendances, hygiène repo + légal, RLS Supabase, surface applicative vibecode — verdict GO/NO-GO par section. |
 

@@ -78,6 +78,8 @@ trous récurrents des apps vibecodées avec leurs tests concrets : IDOR,
 enforcement serveur, rate limiting (par user + par IP sur les endpoints
 pré-auth coûteux), JWT, SSRF, uploads, CORS, limites d'entrée, PII dans les
 logs, actions d'agent IA. Chaque item : ✅ / ⚠️ / 🕳️ avec fichier:ligne.
+La revue ici reste statique — les « Test : » de la checklist s'exécutent
+contre une stack locale via `/proof-run --checks` (skill voisin).
 
 ## Livrable
 
