@@ -11,7 +11,9 @@ license: MIT
 
 # Doc Ingest
 
-Décision d'abord, conversion ensuite :
+Décision d'abord, conversion ensuite. Compter les pages d'un PDF :
+`mdls -name kMDItemNumberOfPages <pdf>` ; s'il ne trouve rien (index
+Spotlight), pypdf via uvx (`uvx --from pypdf python3 -c "..."`).
 
 | Cas | Faire |
 |---|---|

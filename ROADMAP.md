@@ -8,7 +8,7 @@ Pipeline visé : **« du vibecode au shippable »** —
 | Skill | Statut | Rôle |
 |---|---|---|
 | `cleanup-pass` | ✅ v1, rodée (video-trimmer, 31/08/2026) | Repasse qualité à validité constante |
-| `doc-ingest` | ✅ v1 | Documents (PDF/Office) → markdown pour le contexte agent (markitdown) |
+| `doc-ingest` | ✅ v1 rodée (DDT immobilier 54 p., 04/09/2026) | Documents (PDF/Office) → markdown pour le contexte agent (markitdown) |
 | `safety-net` | ✅ v1 rodée (prompt_battle + slide-maker, 02/09/2026 ; CI différentielle verte sur main depuis le 04/09) | Tests de caractérisation sur repo non testé — débloque le gate de cleanup-pass |
 | `ship-check` | ✅ v1 **rodée** (slide-maker, 03-04/09/2026) | Audit pré-publication GO/NO-GO : secrets, deps, hygiène+légal, RLS Supabase, surface vibecode (checklist des captures) |
 | `proof-run` | ✅ v1 livrée (03/09/2026), à roder | Preuve d'usage : vérificateur indépendant qui pilote la vraie app, verdict works/broken + preuve dans la PR ; `--checks` = bras dynamique de ship-check |
