@@ -9,10 +9,10 @@ Pipeline visé : **« du vibecode au shippable »** —
 |---|---|---|
 | `cleanup-pass` | ✅ v1, rodée (video-trimmer, 31/08/2026) | Repasse qualité à validité constante |
 | `doc-ingest` | ✅ v1 | Documents (PDF/Office) → markdown pour le contexte agent (markitdown) |
-| `safety-net` | ✅ v1 livrée (02/09/2026), à roder | Tests de caractérisation sur repo non testé — débloque le gate de cleanup-pass |
-| `ship-check` | ✅ v1 livrée (03/09/2026), à roder | Audit pré-publication GO/NO-GO : secrets, deps, hygiène+légal, RLS Supabase, surface vibecode (checklist des captures) |
+| `safety-net` | ✅ v1 rodée (prompt_battle + slide-maker, 02/09/2026 ; CI différentielle verte sur main depuis le 04/09) | Tests de caractérisation sur repo non testé — débloque le gate de cleanup-pass |
+| `ship-check` | ✅ v1 **rodée** (slide-maker, 03-04/09/2026) | Audit pré-publication GO/NO-GO : secrets, deps, hygiène+légal, RLS Supabase, surface vibecode (checklist des captures) |
 | `proof-run` | ✅ v1 livrée (03/09/2026), à roder | Preuve d'usage : vérificateur indépendant qui pilote la vraie app, verdict works/broken + preuve dans la PR ; `--checks` = bras dynamique de ship-check |
-| `docs-pass` | ✅ v1 livrée (03/09/2026), à roder | Chaque commande du README réellement exécutée + quiz de connaissance (les docs seuls répondent) + six bascules sur le contexte agent + doc de reprise |
+| `docs-pass` | ✅ v1 **rodée** (slide-maker, 03/09/2026) | Chaque commande du README réellement exécutée + quiz de connaissance (les docs seuls répondent) + six bascules sur le contexte agent + doc de reprise |
 | `spec-lite` | 📋 backlog | Une page de critères d'acceptation avant de vibecoder (spec-kit allégé, moteur grilling) |
 
 Méthode par skill : design par grilling (rounds de décisions verrouillées) →

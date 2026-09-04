@@ -98,6 +98,9 @@ Même discipline que cleanup-pass :
    du quiz répondues avant→après, lignes toujours-chargées avant→après.
 3. Remote présent → push + PR draft, rapport en description.
 4. Commits sans Co-Authored-By ni mention d'IA.
+5. **Si la branche docs attend pendant que d'autres PRs mergent** :
+   re-vérifier les faits affirmés juste avant le merge (re-exécuter ce qui
+   a pu changer) — une doc vraie au commit peut être fausse au merge.
 
 **Fini quand** : chaque commande restante de la doc a tourné, chaque
 question du quiz a sa réponse dans les docs, zéro conflit entre couches

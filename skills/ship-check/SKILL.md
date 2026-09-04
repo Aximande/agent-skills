@@ -60,6 +60,11 @@ proposé. Moderate/low : comptées, sans bloquer. Vérifier aussi qu'aucun
 - `.gitignore` couvre env, artefacts, venvs ; variables d'env **documentées**
   (`.env.example` sans valeurs) ; licence présente ; visibilité du repo
   cohérente avec son contenu.
+- **Pipeline de déploiement vivant** : le dernier deploy réussi
+  correspond-il à HEAD ? (Vercel/CI — dates et statuts des derniers runs.)
+  L'audit du repo ne dit rien de ce qui tourne si la prod sert un vieux
+  build — vécu : deploys silencieusement bloqués 15 jours par une version
+  Next vulnérable, prod figée sur un build d'avant les correctifs.
 - Légal minimal si l'app a des utilisateurs : Privacy Policy présente et
   sincère — mentionne la collecte de données, l'usage d'IA s'il y en a, les
   collecteurs tiers ; aucun faux témoignage dans le contenu.
