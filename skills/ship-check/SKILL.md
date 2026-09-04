@@ -41,10 +41,11 @@ tokens forgeables), aucune clé **secrète** dans du code servi au client
 RLS qui protège, pas la clé), aucun token/credential codé en dur.
 NO-GO : tout secret actif dans l'historique d'un repo destiné au public.
 Tester si une clé fuitée est encore active **sans jamais l'utiliser** :
-récupérer la clé actuelle par la voie légitime (API Management Supabase,
-dashboard du provider) et comparer localement — identique = pas de
-rotation. Une requête portant la clé fuitée est hors limites, même en
-lecture.
+récupérer par la voie légitime (API Management Supabase, dashboard du
+provider) la clé actuelle **et son statut enabled/disabled**, puis
+comparer localement — identique ET enabled = fuite active ; identique
+mais disabled = fuite inerte (le dire tel quel au rapport). Une requête
+portant la clé fuitée est hors limites, même en lecture.
 
 ## Section 2 — Dépendances
 
