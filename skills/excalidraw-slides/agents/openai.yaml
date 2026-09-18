@@ -1,0 +1,4 @@
+interface:
+  display_name: "Excalidraw Slides"
+  short_description: "Slides éditables, sourcées et vérifiées visuellement"
+  default_prompt: "Utilise $excalidraw-slides pour créer une présentation adaptée à mon public et à mon temps de parole, avec notes orales et vérification visuelle."

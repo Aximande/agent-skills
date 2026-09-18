@@ -1,0 +1,50 @@
+<svg width="1200" height="340" viewBox="0 0 1200 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="agent-skills — du vibecode au shippable">
+  <style>
+    text { font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+    .muted  { fill: #8B949E; }
+    .subtle { fill: #6E7681; }
+    .bright { fill: #E6EDF3; }
+    .green  { fill: #3FB950; }
+    .lime   { fill: #7EE787; }
+  </style>
+
+  <!-- carte terminal -->
+  <rect x="1" y="1" width="1198" height="338" rx="16" fill="#0D1117" stroke="#30363D" stroke-width="2"/>
+
+  <!-- chrome fenêtre -->
+  <circle cx="34" cy="34" r="6.5" fill="#FF5F57"/>
+  <circle cx="56" cy="34" r="6.5" fill="#FEBC2E"/>
+  <circle cx="78" cy="34" r="6.5" fill="#28C840"/>
+  <text x="600" y="39" font-size="12" text-anchor="middle" class="subtle">aximande/agent-skills — zsh</text>
+  <line x1="1" y1="58" x2="1199" y2="58" stroke="#21262D" stroke-width="1.5"/>
+
+  <!-- session terminal (gauche) -->
+  <text x="52" y="116" font-size="16">
+    <tspan class="muted">~/repo $ </tspan><tspan class="bright">claude</tspan>
+  </text>
+  <text x="52" y="152" font-size="16">
+    <tspan class="muted">&gt; </tspan><tspan class="lime" font-weight="bold">/cleanup-pass</tspan>
+  </text>
+  <text x="52" y="182" font-size="14">
+    <tspan class="green">✓</tspan><tspan class="muted"> code plus court · 0 régression — gate tests/build vert</tspan>
+  </text>
+  <text x="52" y="218" font-size="16">
+    <tspan class="muted">&gt; </tspan><tspan class="lime" font-weight="bold">/ship-check</tspan>
+  </text>
+  <rect x="182" y="204" width="9" height="17" fill="#7EE787">
+    <animate attributeName="opacity" values="1;1;0;0" dur="1.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- wordmark (droite) -->
+  <text x="1148" y="140" font-size="52" font-weight="bold" text-anchor="end">
+    <tspan class="green">/</tspan><tspan class="bright">agent-skills</tspan>
+  </text>
+  <text x="1148" y="178" font-size="19" font-style="italic" text-anchor="end" class="muted">du vibecode au shippable</text>
+  <text x="1148" y="206" font-size="13" text-anchor="end" class="subtle">9 skills · format SKILL.md · rodés sur de vrais repos</text>
+
+  <!-- pipeline -->
+  <line x1="1" y1="252" x2="1199" y2="252" stroke="#21262D" stroke-width="1.5"/>
+  <text x="600" y="302" font-size="14" text-anchor="middle">
+    <tspan class="bright">spec-lite</tspan><tspan class="subtle"> → </tspan><tspan class="muted" font-style="italic">vibecode</tspan><tspan class="subtle"> → </tspan><tspan class="bright">proof-run</tspan><tspan class="subtle"> → </tspan><tspan class="bright">safety-net</tspan><tspan class="subtle"> → </tspan><tspan class="bright">cleanup-pass</tspan><tspan class="subtle"> → </tspan><tspan class="bright">docs-pass</tspan><tspan class="subtle"> → </tspan><tspan class="lime" font-weight="bold">ship-check</tspan>
+  </text>
+</svg>
