@@ -5,8 +5,10 @@ description: >
   gestes 1:1, springs interruptibles, momentum, matériaux, typographie
   optique, reduced-motion. Compile les principes des WWDC en checks
   vérifiables (grep + pilotage de la vraie app) et prouve l'interruptibilité
-  en attrapant une animation en vol. Use when: « passe fluid-pass », « rends
-  cette UI plus fluide / plus Apple », « audite le feel de ce drag / sheet /
+  en attrapant une animation en vol. Mode amélioration (radar
+  anti-template, auto-critique du plan) sur demande. Use when: « passe
+  fluid-pass », « rends cette UI plus fluide / plus Apple », « rends ce
+  design moins générique », « audite le feel de ce drag / sheet /
   carousel », ou /fluid-pass sur un repo web. Uniquement sur demande
   explicite.
 license: MIT
@@ -44,11 +46,14 @@ pas l'a11y générale (fixing-accessibility), pas l'identité anti-template
 ## 1. Checks déterministes (le grep est la preuve)
 
 Fixes mécaniques, commits gatés. Chaque propriété se greppe sous ses
-**deux graphies** — `touch-action` ET `touchAction` : les styles
-inline/CSS-in-JS sont en camelCase, un grep kebab-only rend des verdicts
-faux (payé au rodage). Et ne citer une feuille CSS qu'après avoir vérifié
-qu'elle est **réellement importée** (une feuille morte → cleanup-pass,
-pas un finding feel).
+**trois graphies** — kebab (`touch-action`), camelCase (`touchAction`,
+styles inline/CSS-in-JS) et utilitaires Tailwind (`touch-*`,
+`motion-reduce:`, `tracking-*`, `backdrop-blur-*`, `transition-*`,
+`active:`) : un grep mono-graphie rend des verdicts faux (payé au
+rodage). Les noms de libs se greppent avec frontières de mots (`grep -w` :
+`embla` matche « vrais**embla**ble » — payé aussi). Et ne citer une
+feuille CSS qu'après avoir vérifié qu'elle est **réellement importée**
+(une feuille morte → cleanup-pass, pas un finding feel).
 
 - **reduced-motion** : toute animation/transition sans équivalent sous
   `@media (prefers-reduced-motion: reduce)` (cross-fade, pas de slide ni
@@ -84,8 +89,9 @@ Chaque finding cite fichier:ligne + la réécriture proposée ou le repro :
   `pointercancel` tactile, à juger avec `touch-action` (proposition de
   robustesse, pas finding).
 - **Release** : seam visible entre le doigt et l'animation (vélocité non
-  transmise) ; snap au point le plus proche de la *position* au lieu de la
-  **projection du momentum**. Références :
+  transmise) ; reverse/commit décidé sur la *position* au lieu du
+  **signe de la vélocité** ; snap au point le plus proche de la position
+  au lieu de la **projection du momentum**. Références :
   `projeté = position + (v/1000)·d/(1−d)` avec `d ≈ 0.998` ;
   vélocité relative = `v / (cible − courant)` ;
   rubberband = `(x·dim·c)/(dim + c·|x|)` avec `c ≈ 0.55` — jamais de hard
@@ -96,9 +102,24 @@ Chaque finding cite fichier:ligne + la réécriture proposée ou le repro :
 - **Espace** : entrée et sortie par des chemins différents ;
   menu/popover/sheet sans `transform-origin` ancré au déclencheur.
 - **Springs** : défaut = amorti critique (damping 1.0) ; du bounce
-  (~0.8) *uniquement* après un geste à momentum. Valeurs de référence
-  Apple : déplacement 1.0/0.4, rotation 0.8/0.4, sheet 0.8/0.3
-  (damping/response).
+  (~0.8) *uniquement* après un geste à momentum. Un mouvement 2D se
+  décompose en springs X/Y indépendants (une seule spring sur la distance
+  désynchronise). Valeurs de référence Apple : déplacement 1.0/0.4,
+  rotation 0.8/0.4, sheet 0.8/0.3 (damping/response).
+- **Lib d'animation présente** (framer-motion/Motion…) :
+  `AnimatePresence mode="wait"` sur une navigation = non-interruptible
+  par design — l'entrant attend la fin du sortant, mesurer la latence
+  appui→contenu ; absence de `MotionConfig reducedMotion="user"` =
+  reduced-motion non couvert côté JS (un bloc CSS ne neutralise pas les
+  animations inline) ; `reducedMotion="always"` dans une branche
+  print/export est un usage légitime, pas un finding.
+- **Matériaux & retours** : un modal se scrime (dim), un panneau
+  parallèle non-bloquant ne se scrime pas ; une surface de verre se
+  *matérialise* (blur + scale ensemble), elle ne fade pas ; texte sur
+  matériau = contraste + graisse, la couleur vit sur une couche pleine ;
+  bord de scroll en fondu plutôt que bordure 1 px. Son/haptique/visuel
+  sur la **même frame**, cause évidente, réservés aux moments qui
+  comptent.
 
 Sur une surface auditée dépassant ~1 500 lignes : **second passage par un
 agent frais** — deux audits indépendants trouvent des ensembles
@@ -115,10 +136,49 @@ tels.
   dragger la surface clé, relâcher avec vitesse (l'élément continue-t-il
   sur sa lancée ?), et **attraper l'animation en vol** pour l'inverser —
   suit-elle le pointeur ou finit-elle sa course d'abord ?
+- **Instrumenter par `eval`** : listener d'input horodaté +
+  échantillonnage du DOM toutes les 100-150 ms. La latence input→contenu,
+  les inputs perdus et un lockout se mesurent ainsi, en chiffres, sans
+  profiler ni vidéo (technique validée au rodage : 535 ms de temps mort
+  mesurées sur un `mode="wait"`).
 - Enregistrer l'interaction et la relire image par image : les défauts de
   seam et de saut sont invisibles à pleine vitesse.
 - Un fix de feel n'entre en commit que si le repro avant/après montre la
   différence ; sinon rapport.
+
+## 4. Mode amélioration — sur demande seulement
+
+Quand la demande est « améliore ce design / rends-le moins générique »
+(pas un simple audit) : d'abord §0-§3, puis travailler comme un studio.
+
+- **Ancrer dans le produit** : nommer le public, le job unique de
+  l'écran, et l'élément signature — celui dont on se souviendra. La
+  hardiesse se dépense à un seul endroit, tout le reste se tait.
+- **Radar anti-template** — les looks qui dominent l'UI générée sont des
+  défauts, pas des choix : crème chaud + serif contrastée + accent
+  terracotta ; near-black + un accent acide (vert/vermillon) ; broadsheet
+  de filets hairline, radius zéro, colonnes denses. Idem le héros « gros
+  chiffre sur petit label + gradient » et la numérotation 01/02/03 sur du
+  contenu non séquentiel. Une palette ou un layout sans raison enracinée
+  dans le produit se révise.
+- **Auto-critique du plan avant de le proposer** : « ce plan
+  sortirait-il identique pour un autre produit ? » Si oui, le réviser et
+  dire ce qui a changé ; s'il est déjà spécifique, le dire aussi.
+- Séquencer : accessibilité → conventions → craft → polish. Ne pas
+  sur-critiquer un design fort ; ne pas aplatir la personnalité — si les
+  fixes rendent le design indiscernable d'un template, c'est trop loin.
+- Chevauchement assumé avec baseline-ui : baseline-ui pose le plancher
+  anti-slop à la génération ; ce mode juge et redresse un design
+  existant.
+
+## Références à la demande (HIG)
+
+Les Human Interface Guidelines ne se vendorent pas (droits Apple,
+péremption) et ne se citent pas de mémoire : **fetcher la page au moment
+du besoin** sur `developer.apple.com/design/human-interface-guidelines/<page>`
+selon la surface auditée — `gestures`, `motion`, `materials`,
+`typography`, `feedback`, `drag-and-drop`, `sheets`, `menus` — et citer
+la page fetchée dans le finding.
 
 ## Livraison
 
