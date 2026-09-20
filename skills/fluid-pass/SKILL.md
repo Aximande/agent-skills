@@ -43,7 +43,12 @@ pas l'a11y générale (fixing-accessibility), pas l'identité anti-template
 
 ## 1. Checks déterministes (le grep est la preuve)
 
-Fixes mécaniques, commits gatés :
+Fixes mécaniques, commits gatés. Chaque propriété se greppe sous ses
+**deux graphies** — `touch-action` ET `touchAction` : les styles
+inline/CSS-in-JS sont en camelCase, un grep kebab-only rend des verdicts
+faux (payé au rodage). Et ne citer une feuille CSS qu'après avoir vérifié
+qu'elle est **réellement importée** (une feuille morte → cleanup-pass,
+pas un finding feel).
 
 - **reduced-motion** : toute animation/transition sans équivalent sous
   `@media (prefers-reduced-motion: reduce)` (cross-fade, pas de slide ni
@@ -51,7 +56,9 @@ Fixes mécaniques, commits gatés :
   `prefers-reduced-transparency`. L'absence du bloc *est* le finding.
 - **Feedback à l'appui** : contrôle pressable sans état `:active` (ou
   équivalent pointer-down) — le feedback qui attend le `click` est mort.
-  Élément interactif custom sans `touch-action: manipulation`.
+  Élément interactif custom sans `touch-action: manipulation`. Vérifier
+  aussi qu'une `transition: all` ne lisse pas le `transform` du
+  `:active` : un press adouci sur 150 ms est un press mou.
 - **Durée fixe sur surface manipulable** : `transition`/`@keyframes` sur un
   élément aussi piloté au pointeur (sheet, drag) — non interruptible par
   construction, à remplacer par une animation repartant de la valeur
@@ -69,10 +76,13 @@ Fixes mécaniques, commits gatés :
 
 Chaque finding cite fichier:ligne + la réécriture proposée ou le repro :
 
-- **Drag** : snap au centre au lieu du grab offset ; pas de
-  `setPointerCapture` ; pas d'historique de vélocité (impossible de rendre
-  la vélocité au release) ; pas d'hystérésis (~10 px) avant d'engager une
-  direction.
+- **Drag** : snap au centre au lieu du grab offset ; pas d'historique de
+  vélocité (impossible de rendre la vélocité au release) ; pas
+  d'hystérésis (~10 px) avant d'engager une direction. L'absence de
+  `setPointerCapture` seule n'est pas un bug : à la souris, la capture
+  implicite + listeners `window` font le travail — le trou réel est le
+  `pointercancel` tactile, à juger avec `touch-action` (proposition de
+  robustesse, pas finding).
 - **Release** : seam visible entre le doigt et l'animation (vélocité non
   transmise) ; snap au point le plus proche de la *position* au lieu de la
   **projection du momentum**. Références :
@@ -89,6 +99,11 @@ Chaque finding cite fichier:ligne + la réécriture proposée ou le repro :
   (~0.8) *uniquement* après un geste à momentum. Valeurs de référence
   Apple : déplacement 1.0/0.4, rotation 0.8/0.4, sheet 0.8/0.3
   (damping/response).
+
+Sur une surface auditée dépassant ~1 500 lignes : **second passage par un
+agent frais** — deux audits indépendants trouvent des ensembles
+partiellement disjoints (mesuré au rodage) ; le rapport est l'union
+arbitrée, chaque finding du second passage revérifié au vrai code.
 
 ## 3. Preuve dynamique — le feel piloté
 
