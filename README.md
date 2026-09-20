@@ -15,7 +15,7 @@ for Claude Code, Codex CLI, Cursor and any compatible tool.)*
 <br/>
 
 [![Format SKILL.md](https://img.shields.io/badge/format-SKILL.md-58A6FF?style=flat-square)](https://agentskills.io)
-![Skills](https://img.shields.io/badge/skills-9-3FB950?style=flat-square)
+![Skills](https://img.shields.io/badge/skills-10-3FB950?style=flat-square)
 ![Compatible](https://img.shields.io/badge/Claude_Code_·_Codex_·_Cursor-compatible-8957E5?style=flat-square)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-8B949E?style=flat-square)](LICENSE)
 
@@ -46,13 +46,14 @@ flowchart LR
 
 `spec-lite`, en tête de pipeline, est encore en backlog ([ROADMAP](ROADMAP.md)).
 
-En dehors du pipeline, trois skills transverses :
+En dehors du pipeline, quatre skills transverses :
 
 | Skill | Rôle |
 |---|---|
 | [`doc-ingest`](skills/doc-ingest/SKILL.md) | PDF et documents Office convertis en markdown pour le contexte agent |
 | [`llm-handover`](skills/llm-handover/SKILL.md) | Handover vers un autre LLM, vérifié par un agent frais qui ne voit que le document |
 | [`excalidraw-slides`](skills/excalidraw-slides/SKILL.md) | Présentations Excalidraw éditables, avec notes orales et contrôle visuel |
+| [`fluid-pass`](skills/fluid-pass/SKILL.md) | Repasse « feel » à la Apple : gestes 1:1, springs interruptibles, preuve au pilotage de la vraie app |
 
 ## Installation
 
