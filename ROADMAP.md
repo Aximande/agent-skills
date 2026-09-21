@@ -25,3 +25,4 @@ hors de ce dépôt ; ce qu'un rodage apprend finit en lignes du `SKILL.md`.
   [autoresearch](https://github.com/karpathy/autoresearch),
   [llm-council](https://github.com/karpathy/llm-council)
 - [graphify](https://github.com/Graphify-Labs/graphify) — repo → graphe de connaissances
+- le skill `apple-design` (WWDC fluid interfaces, typographie, principes — distillé web) et [dickwu/apple-design-skill](https://github.com/dickwu/apple-design-skill) (review HIG) — croisés dans `fluid-pass`

@@ -34,6 +34,9 @@ pas l'a11y générale (fixing-accessibility), pas l'identité anti-template
 - Stack : React/Next/vanilla ? Lib d'animation présente (Motion,
   react-spring, GSAP, CSS pur) ? **Context7 sur la lib qui est là** —
   aucune API affirmée de mémoire.
+- Le savoir complet (formules, valeurs, principes, processus de review)
+  vit dans `REFERENCE.md`, même dossier — charger la **section utile** au
+  moment du besoin, pas tout d'un coup. Le SKILL reste le protocole.
 - **Inventaire des surfaces gestuelles**, chacune avec fichier:ligne :
   drags, swipes, sheets/drawers, carousels, scroll custom, contrôles
   pressables. C'est la carte de l'audit ; une surface non listée n'est pas
