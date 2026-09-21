@@ -2,9 +2,9 @@
 
 Pipeline visé : **« du vibecode au shippable »** —
 `spec-lite` → vibecode → `proof-run` → `safety-net` → `cleanup-pass` →
-`docs-pass` → `ship-check`, avec `react-doctor` avant cleanup-pass sur les
-repos React, et `doc-ingest`, `llm-handover`, `excalidraw-slides` en
-transverses.
+`docs-pass` → `ship-check`, avec `react-doctor` (repos React) et
+`fluid-pass` (produits UI) avant cleanup-pass, et `doc-ingest`,
+`llm-handover`, `excalidraw-slides` en transverses.
 
 À venir : `spec-lite` — une page de critères d'acceptation avant de vibecoder
 (spec-kit allégé).

@@ -33,6 +33,8 @@ flowchart LR
     SL([spec-lite]) --> VC{{vibecode}} --> PR([proof-run]) --> SN([safety-net]) --> CP([cleanup-pass]) --> DP([docs-pass]) --> SC([ship-check])
     SN -. repo React .-> RD([react-doctor])
     RD -.-> CP
+    SN -. produit UI .-> FP([fluid-pass])
+    FP -.-> CP
 ```
 
 | Skill | Rôle |
@@ -40,20 +42,20 @@ flowchart LR
 | [`proof-run`](skills/proof-run/SKILL.md) | Un vérificateur indépendant pilote la vraie app et embarque la preuve dans la PR |
 | [`safety-net`](skills/safety-net/SKILL.md) | Tests de caractérisation sur un repo non testé, prouvés par sabotage |
 | [`react-doctor`](skills/react-doctor/SKILL.md) | Diagnostic React/Next : pose le lint hooks, audite ce que le lint ne voit pas |
+| [`fluid-pass`](skills/fluid-pass/SKILL.md) | Repasse « feel » à la Apple : gestes 1:1, springs interruptibles, latences mesurées dans la vraie app ; mode amélioration anti-template |
 | [`cleanup-pass`](skills/cleanup-pass/SKILL.md) | Code plus court à comportement constant, gaté par les tests du repo |
 | [`docs-pass`](skills/docs-pass/SKILL.md) | Un README dont chaque commande a réellement été exécutée |
 | [`ship-check`](skills/ship-check/SKILL.md) | Audit pré-publication : secrets, dépendances, RLS, surface applicative |
 
 `spec-lite`, en tête de pipeline, est encore en backlog ([ROADMAP](ROADMAP.md)).
 
-En dehors du pipeline, quatre skills transverses :
+En dehors du pipeline, trois skills transverses :
 
 | Skill | Rôle |
 |---|---|
 | [`doc-ingest`](skills/doc-ingest/SKILL.md) | PDF et documents Office convertis en markdown pour le contexte agent |
 | [`llm-handover`](skills/llm-handover/SKILL.md) | Handover vers un autre LLM, vérifié par un agent frais qui ne voit que le document |
 | [`excalidraw-slides`](skills/excalidraw-slides/SKILL.md) | Présentations Excalidraw éditables, avec notes orales et contrôle visuel |
-| [`fluid-pass`](skills/fluid-pass/SKILL.md) | Repasse « feel » à la Apple : gestes 1:1, springs interruptibles, preuve au pilotage de la vraie app |
 
 ## Installation
 
