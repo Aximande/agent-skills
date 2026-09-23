@@ -50,7 +50,9 @@ Trois principes :
 ## 2. La page — `SPEC.md`
 
 Committée à la racine du repo cible (c'est un artefact du projet,
-contrairement aux rapports des autres skills) :
+contrairement aux rapports des autres skills). Projet neuf → `SPEC.md` ;
+feature sur un existant → `SPEC-<feature>.md` (un repo accumule des
+specs, payé au rodage) :
 
 ```markdown
 # SPEC — <nom> (<date>)
@@ -78,8 +80,15 @@ contrairement aux rapports des autres skills) :
 - Priorisation héritée de spec-kit : **les critères P1 forment seuls un
   produit viable** ; chaque priorité est démontrable indépendamment.
 - Critères tech-agnostiques — le « comment » appartient au vibecode.
-  Chiffrés quand c'est du perf/volume (« en moins de 2 s », « 500
-  lignes »), jamais d'adjectif (« rapide », « agréable » = à reformuler).
+  Mais **tech-agnostique ne veut pas dire vague** : la surface observable
+  se nomme exactement (l'URL, la commande, l'écran) — c'est le *où* du
+  test, pas un choix d'implémentation. Un vérificateur qui ne sait pas
+  quelle URL appeler ne peut pas jouer le critère (payé au rodage).
+- Chiffrés quand c'est du perf/volume (« en moins de 2 s »), jamais
+  d'adjectif (« rapide », « clair », « agréable » = à reformuler).
+- Un critère négatif (« rien ne se passe », « aucune écriture ») dit
+  **où l'absence s'observe** (la table, le log, l'inbox) — sinon il est
+  injouable.
 
 ## 3. Vérification — la spec passe l'agent frais
 
