@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent-skills — du vibecode au shippable</title>
+<meta name="description" content="10 skills d'agent rodés sur de vrais repos, au format ouvert SKILL.md. Installables sur Claude Code, Claude, Codex CLI, Cursor et tout outil compatible.">
+<style>
+  :root {
+    --bg: #0D1117; --card: #161B22; --border: #30363D; --line: #21262D;
+    --text: #E6EDF3; --muted: #8B949E; --subtle: #6E7681;
+    --green: #3FB950; --lime: #7EE787; --blue: #58A6FF; --purple: #BC8CFF;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    padding: 24px 16px 80px;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, .mono { font-family: var(--mono); }
+  code { background: #1F242C; border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: .88em; }
+
+  /* ---- hero terminal ---- */
+  .hero { background: var(--bg); border: 2px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
+  .hero-bar { display: flex; align-items: center; gap: 8px; padding: 13px 18px; border-bottom: 1.5px solid var(--line); }
+  .dot { width: 13px; height: 13px; border-radius: 50%; }
+  .hero-bar span.path { margin: 0 auto; color: var(--subtle); font-family: var(--mono); font-size: 12px; }
+  .hero-body { padding: 34px 34px 26px; display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; align-items: center; }
+  .term { font-family: var(--mono); font-size: 15px; line-height: 2.1; }
+  .term .p { color: var(--muted); }
+  .term .cmd { color: var(--lime); font-weight: 700; }
+  .term .ok { color: var(--green); }
+  .term .out { color: var(--muted); font-size: 13px; }
+  .cursor { display: inline-block; width: 8px; height: 16px; background: var(--lime); vertical-align: -2px; animation: blink 1.2s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+  .wordmark { text-align: right; }
+  .wordmark h1 { font-family: var(--mono); font-size: clamp(1.9rem, 5vw, 3rem); letter-spacing: -0.02em; }
+  .wordmark h1 .slash { color: var(--green); }
+  .wordmark .tag { color: var(--muted); font-style: italic; font-size: 1.05rem; }
+  .wordmark .sub { color: var(--subtle); font-family: var(--mono); font-size: .78rem; margin-top: 6px; }
+
+  h2 { font-size: 1.45rem; margin: 52px 0 6px; letter-spacing: -0.01em; }
+  h2 + p.lead { color: var(--muted); margin-bottom: 22px; max-width: 70ch; }
+
+  /* ---- pipeline ---- */
+  .pipe { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--mono); font-size: 14px; margin: 18px 0 8px; }
+  .chip { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 5px 14px; color: var(--text); white-space: nowrap; }
+  a.chip:hover { border-color: var(--blue); text-decoration: none; }
+  .chip.you { border-style: dashed; color: var(--muted); font-style: italic; }
+  .chip.final { color: var(--lime); border-color: #2EA04366; }
+  .chip.soon { color: var(--subtle); border-style: dashed; }
+  .arrow { color: var(--subtle); }
+  .branch { color: var(--subtle); font-family: var(--mono); font-size: 13px; margin: 4px 0 0 12px; }
+  .branch .chip { font-size: 13px; padding: 3px 11px; }
+
+  /* ---- cards ---- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-top: 20px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 15px; }
+  .card h3 { font-family: var(--mono); font-size: 1.02rem; margin-bottom: 6px; }
+  .card h3 .slash { color: var(--green); }
+  .card p.role { font-size: .92rem; color: var(--text); margin-bottom: 10px; }
+  .card .say { font-size: .84rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 10px; margin-bottom: 10px; font-style: italic; }
+  .card .get { font-size: .82rem; color: var(--subtle); }
+  .card .get b { color: var(--muted); font-weight: 600; }
+
+  /* ---- install ---- */
+  .callout { background: #12181F; border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 8px; padding: 14px 18px; margin: 18px 0; font-size: .95rem; color: var(--muted); }
+  .callout b { color: var(--text); }
+  details { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin: 10px 0; }
+  summary { cursor: pointer; padding: 13px 18px; font-weight: 650; list-style: none; display: flex; align-items: center; gap: 10px; }
+  summary::before { content: "▸"; color: var(--subtle); transition: transform .15s; }
+  details[open] summary::before { transform: rotate(90deg); }
+  summary .hint { font-weight: 400; color: var(--subtle); font-size: .85rem; margin-left: auto; }
+  .dbody { padding: 2px 20px 18px; color: var(--muted); font-size: .94rem; }
+  .dbody ol { padding-left: 20px; }
+  .dbody li { margin: 9px 0; }
+  .dbody li b { color: var(--text); }
+  pre { position: relative; background: #0A0D12; border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; margin: 10px 0; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; color: var(--text); }
+  pre .c { color: var(--subtle); }
+  .copy { position: absolute; top: 8px; right: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font: 11.5px var(--mono); padding: 3px 9px; cursor: pointer; }
+  .copy:hover { color: var(--text); border-color: var(--blue); }
+
+  /* ---- méthode ---- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 18px; }
+  .step { border: 1px solid var(--border); border-radius: 10px; padding: 15px 16px; background: var(--card); }
+  .step .n { font-family: var(--mono); color: var(--green); font-size: .8rem; }
+  .step b { display: block; margin: 3px 0 5px; }
+  .step p { font-size: .85rem; color: var(--muted); }
+
+  footer { margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--subtle); font-size: .87rem; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-bar">
+      <span class="dot" style="background:#FF5F57"></span>
+      <span class="dot" style="background:#FEBC2E"></span>
+      <span class="dot" style="background:#28C840"></span>
+      <span class="path">aximande/agent-skills — zsh</span>
+    </div>
+    <div class="hero-body">
+      <div class="term">
+        <div><span class="p">~/repo $ </span>claude</div>
+        <div><span class="p">&gt; </span><span class="cmd">/cleanup-pass</span></div>
+        <div class="out"><span class="ok">✓</span> code plus court · 0 régression — gate tests/build vert</div>
+        <div><span class="p">&gt; </span><span class="cmd">/ship-check</span> <span class="cursor"></span></div>
+      </div>
+      <div class="wordmark">
+        <h1><span class="slash">/</span>agent-skills</h1>
+        <div class="tag">du vibecode au shippable</div>
+        <div class="sub">10 skills · format SKILL.md · rodés sur de vrais repos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C'EST QUOI -->
+  <h2>C'est quoi, un skill ?</h2>
+  <p class="lead">
+    Un skill est un fichier d'instructions expertes (<code>SKILL.md</code>, du simple
+    markdown) que votre agent IA — Claude, Codex, Cursor… — charge quand la tâche
+    correspond. Vous l'appelez par son nom (<code>/cleanup-pass</code>) ou en langage
+    naturel (« nettoie ce repo »), et l'agent suit le protocole au lieu d'improviser.
+    Ceux de ce repo ont une particularité : <b style="color:var(--text)">chacun est
+    rodé sur de vrais projets</b> — on sabote le code pour vérifier que le skill
+    détecte, et chaque leçon du terrain est réécrite dedans.
+  </p>
+
+  <!-- PIPELINE -->
+  <h2>Le pipeline — du vibecode au shippable</h2>
+  <p class="lead">Partir d'un projet codé à l'instinct qui « marche sur ma machine »
+  et le rendre publiable, chaque étape gatée par une preuve.
+  (<i>vibecode</i> n'est pas un skill : c'est vous.)</p>
+  <div class="pipe">
+    <span class="chip soon">spec-lite</span><span class="arrow">→</span>
+    <span class="chip you">vibecode</span><span class="arrow">→</span>
+    <a class="chip" href="#proof-run">proof-run</a><span class="arrow">→</span>
+    <a class="chip" href="#safety-net">safety-net</a><span class="arrow">→</span>
+    <a class="chip" href="#cleanup-pass">cleanup-pass</a><span class="arrow">→</span>
+    <a class="chip" href="#docs-pass">docs-pass</a><span class="arrow">→</span>
+    <a class="chip final" href="#ship-check">ship-check</a>
+  </div>
+  <div class="branch">↳ repo React : <a class="chip" href="#react-doctor">react-doctor</a>
+    &nbsp;·&nbsp; produit UI : <a class="chip" href="#fluid-pass">fluid-pass</a>
+    <span class="arrow">— avant cleanup-pass</span></div>
+
+  <!-- CARTES PIPELINE -->
+  <div class="grid">
+    <div class="card" id="proof-run">
+      <h3><span class="slash">/</span>proof-run</h3>
+      <p class="role">Un vérificateur indépendant pilote la vraie app et prouve que la feature marche.</p>
+      <p class="say">« Prouve que ça marche » · « vérifie cette feature dans l'app »</p>
+      <p class="get"><b>Vous obtenez :</b> un verdict works/broken avec captures, embarqué dans la PR.</p>
+    </div>
+    <div class="card" id="safety-net">
+      <h3><span class="slash">/</span>safety-net</h3>
+      <p class="role">Pose un filet de tests de caractérisation sur un repo qui n'en a pas.</p>
+      <p class="say">« Pose un filet » · « sécurise ce repo avant refacto »</p>
+      <p class="get"><b>Vous obtenez :</b> des golden masters du comportement actuel, filet prouvé par sabotage.</p>
+    </div>
+    <div class="card" id="react-doctor">
+      <h3><span class="slash">/</span>react-doctor</h3>
+      <p class="role">Diagnostic React/Next : pose le lint hooks, audite ce que le lint ne voit pas.</p>
+      <p class="say">« Diagnostique ce repo React » · « pourquoi ça re-render ? »</p>
+      <p class="get"><b>Vous obtenez :</b> des findings prouvés fichier:ligne (courses, effets morts), perf mesurée en re-renders.</p>
+    </div>
+    <div class="card" id="fluid-pass">
+      <h3><span class="slash">/</span>fluid-pass</h3>
+      <p class="role">Repasse « feel » à la Apple : gestes 1:1, springs interruptibles, reduced-motion.</p>
+      <p class="say">« Rends cette UI plus fluide » · « rends ce design moins générique »</p>
+      <p class="get"><b>Vous obtenez :</b> latences mesurées dans la vraie app, fixes gatés, mode amélioration anti-template.</p>
+    </div>
+    <div class="card" id="cleanup-pass">
+      <h3><span class="slash">/</span>cleanup-pass</h3>
+      <p class="role">Code plus court à comportement constant : dead code retiré, docstrings posées.</p>
+      <p class="say">« Nettoie ce repo » · « épure ce code »</p>
+      <p class="get"><b>Vous obtenez :</b> des commits gatés par vos tests — aucune nouvelle failure tolérée.</p>
+    </div>
+    <div class="card" id="docs-pass">
+      <h3><span class="slash">/</span>docs-pass</h3>
+      <p class="role">Un README dont chaque commande a réellement été exécutée, plus un quiz : les docs seuls doivent répondre.</p>
+      <p class="say">« Passe les docs au propre » · « rends ce repo lisible »</p>
+      <p class="get"><b>Vous obtenez :</b> docs vérifiées en commits, audit du contexte agent (CLAUDE.md).</p>
+    </div>
+    <div class="card" id="ship-check">
+      <h3><span class="slash">/</span>ship-check</h3>
+      <p class="role">Audit pré-publication : secrets (historique git compris), dépendances, RLS, surface applicative.</p>
+      <p class="say">« Peut-on publier ce repo ? » · « passe-le en public »</p>
+      <p class="get"><b>Vous obtenez :</b> un verdict GO/NO-GO par section, rapport SHIP-REPORT.md.</p>
+    </div>
+    <div class="card" id="spec-lite" style="border-style:dashed">
+      <h3><span class="slash">/</span>spec-lite <span style="color:var(--subtle);font-size:.75rem">— à venir</span></h3>
+      <p class="role">Une page de critères d'acceptation avant de vibecoder.</p>
+      <p class="get">En backlog — voir la <a href="https://github.com/Aximande/agent-skills/blob/main/ROADMAP.md">roadmap</a>.</p>
+    </div>
+  </div>
+
+  <!-- TRANSVERSES -->
+  <h2>Les transverses</h2>
+  <p class="lead">Utilisables à tout moment, indépendamment du pipeline.</p>
+  <div class="grid">
+    <div class="card" id="doc-ingest">
+      <h3><span class="slash">/</span>doc-ingest</h3>
+      <p class="role">PDF, Word, PowerPoint, Excel → markdown propre pour le contexte de l'agent.</p>
+      <p class="say">« Mets ce PDF en contexte » · « ce repo entier en une page »</p>
+      <p class="get"><b>Vous obtenez :</b> le document lisible par l'agent, sans perte de structure.</p>
+    </div>
+    <div class="card" id="llm-handover">
+      <h3><span class="slash">/</span>llm-handover</h3>
+      <p class="role">Handover copier-coller pour passer d'une conversation LLM à un autre agent (Codex, ChatGPT, Cursor…).</p>
+      <p class="say">« Prépare un handover » · « je passe sur Codex »</p>
+      <p class="get"><b>Vous obtenez :</b> état + décisions + prochaine action, vérifié par un agent frais qui ne voit que le document.</p>
+    </div>
+    <div class="card" id="excalidraw-slides">
+      <h3><span class="slash">/</span>excalidraw-slides</h3>
+      <p class="role">Présentations Excalidraw adaptées au public et au temps de parole.</p>
+      <p class="say">« Fais des slides Excalidraw » · « transforme ce rapport en présentation »</p>
+      <p class="get"><b>Vous obtenez :</b> slides éditables, notes orales, sources, contrôle visuel.</p>
+    </div>
+  </div>
+
+  <!-- INSTALLATION -->
+  <h2 id="install">Installer — même si c'est votre première fois</h2>
+  <p class="lead">Comptez deux minutes. Choisissez votre outil ci-dessous.</p>
+
+  <div class="callout">
+    <b>Prérequis (une seule fois)</b> — un terminal (l'app <b>Terminal</b> sur Mac) et
+    <a href="https://git-scm.com/downloads">git</a> (souvent déjà installé : tapez
+    <code>git --version</code> pour vérifier). C'est tout. Pas besoin de savoir coder :
+    vous copiez-collez trois lignes.
+  </div>
+
+  <details open>
+    <summary>Claude Code <span class="hint">le terminal d'Anthropic — recommandé</span></summary>
+    <div class="dbody">
+      <ol>
+        <li><b>Ouvrez le Terminal</b> et collez :
+<pre><span class="c"># télécharge le repo puis installe les skills</span>
+git clone https://github.com/Aximande/agent-skills.git
+cd agent-skills &amp;&amp; ./install.sh<button class="copy">copier</button></pre></li>
+        <li><b>Vérifiez</b> : lancez <code>claude</code> dans n'importe quel projet et tapez
+          <code>/cleanup-pass</code> — le skill apparaît. Vous pouvez aussi parler
+          normalement : « nettoie ce repo ».</li>
+        <li><b>Mise à jour</b> plus tard : <code>git pull</code> dans le dossier
+          <code>agent-skills</code>, rien d'autre (les skills sont des liens symboliques).</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>Claude <span class="hint">app de bureau &amp; claude.ai</span></summary>
+    <div class="dbody">
+      <ol>
+        <li>Téléchargez le repo (bouton <b>Code → Download ZIP</b> sur
+          <a href="https://github.com/Aximande/agent-skills">GitHub</a>) et dézippez-le.</li>
+        <li>Compressez le dossier du skill voulu (clic droit sur
+          <code>skills/cleanup-pass</code> → <b>Compresser</b>).</li>
+        <li>Dans Claude : <b>Réglages → Fonctionnalités → Skills</b> (l'intitulé peut
+          varier selon la version) → importez le zip.</li>
+        <li>Demandez ensuite en langage naturel : « nettoie ce repo avec cleanup-pass ».</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>Codex CLI <span class="hint">OpenAI — et tout outil du standard agent-skills</span></summary>
+    <div class="dbody">
+      <ol>
+        <li>Le même <code>./install.sh</code> que Claude Code installe aussi pour Codex
+          (dossier <code>~/.agents/skills/</code>, le standard
+          <a href="https://agentskills.io">agentskills.io</a>).</li>
+        <li>Codex charge le skill automatiquement quand votre demande correspond à sa
+          description — dites simplement « nettoie ce repo ».</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>Cursor</summary>
+    <div class="dbody">
+      <ol>
+        <li>Le même <code>./install.sh</code> génère les commandes dans
+          <code>~/.cursor/commands/</code>.</li>
+        <li>Dans le chat de Cursor, tapez <code>/cleanup-pass</code>.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>Sans rien installer <span class="hint">ChatGPT, Gemini, aider…</span></summary>
+    <div class="dbody">
+      <p>Chaque <code>SKILL.md</code> est du markdown autoporteur. Ouvrez-le sur GitHub,
+      copiez tout, et collez dans votre outil avec :</p>
+      <pre>Lis ce document et exécute-le exactement comme prescrit,
+du préflight à la livraison, sans sauter d'étape.<button class="copy">copier</button></pre>
+      <p>Alternative avec Node installé : <code>npx skills add Aximande/agent-skills</code>
+      copie les skills choisis dans votre projet, pour l'agent de votre choix.</p>
+    </div>
+  </details>
+
+  <!-- MÉTHODE -->
+  <h2>Pourquoi « rodés » ?</h2>
+  <p class="lead">Aucun skill n'est publié sur une bonne intention. Chacun suit le même
+  cycle, et son protocole de mesure est écrit <i>avant</i> le premier essai.</p>
+  <div class="steps">
+    <div class="step"><span class="n">01</span><b>Grilling</b>
+      <p>Des rounds de questions serrées jusqu'à ce que chaque décision de design soit verrouillée.</p></div>
+    <div class="step"><span class="n">02</span><b>v1 + protocole</b>
+      <p>Le SKILL.md naît avec son protocole de mesure — sabotage, précision, non-régression.</p></div>
+    <div class="step"><span class="n">03</span><b>Rodage réel</b>
+      <p>Exécution sur un vrai repo, jamais un exemple jouet. On injecte des pathologies connues : le skill doit les attraper.</p></div>
+    <div class="step"><span class="n">04</span><b>Leçons encodées</b>
+      <p>Chaque défaut observé sur le terrain devient une ligne du skill. Alors seulement, on publie.</p></div>
+  </div>
+
+  <footer>
+    <span><a href="https://github.com/Aximande/agent-skills">github.com/Aximande/agent-skills</a></span>
+    <span>Format ouvert <a href="https://agentskills.io">SKILL.md</a></span>
+    <span>Licence MIT — socle : les 4 principes d'Andrej Karpathy</span>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll(".copy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const pre = btn.closest("pre").cloneNode(true);
+      pre.querySelector(".copy").remove();
+      try {
+        navigator.clipboard.writeText(pre.textContent.replace(/^#.*\n/gm, "").trim());
+        btn.textContent = "copié ✓";
+        setTimeout(() => (btn.textContent = "copier"), 1600);
+      } catch (e) { btn.textContent = "sélectionnez le texte"; }
+    });
+  });
+</script>
+</body>
+</html>

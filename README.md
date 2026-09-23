@@ -19,6 +19,8 @@ for Claude Code, Codex CLI, Cursor and any compatible tool.)*
 ![Compatible](https://img.shields.io/badge/Claude_Code_·_Codex_·_Cursor-compatible-8957E5?style=flat-square)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-8B949E?style=flat-square)](LICENSE)
 
+**[Guide visuel & installation pas-à-pas →](https://aximande.github.io/agent-skills/)**
+
 </div>
 
 ---
@@ -66,6 +68,9 @@ cd agent-skills && ./install.sh
 
 `install.sh` symlinke les skills vers les emplacements standards — un seul
 exemplaire, mis à jour par `git pull` (`--copy` pour copier au lieu de symlinker).
+Seuls prérequis : un terminal et git. Première fois avec un agent IA ? Le
+[guide visuel](https://aximande.github.io/agent-skills/#install) reprend chaque
+étape outil par outil.
 
 <details>
 <summary><strong>Claude Code</strong></summary>
@@ -73,6 +78,17 @@ exemplaire, mis à jour par `git pull` (`--copy` pour copier au lieu de symlinke
 
 Symlinks vers `~/.claude/skills/` : slash commands (`/cleanup-pass`,
 `/ship-check`…) ou langage naturel (« nettoie ce repo »).
+
+</details>
+
+<details>
+<summary><strong>Claude (app de bureau &amp; claude.ai)</strong></summary>
+<br/>
+
+Téléchargez le repo (Code → Download ZIP), compressez le dossier du skill
+voulu (ex. `skills/cleanup-pass/`), puis importez le zip dans
+Réglages → Fonctionnalités → Skills. Demandez ensuite en langage naturel
+(« nettoie ce repo avec cleanup-pass »).
 
 </details>
 
