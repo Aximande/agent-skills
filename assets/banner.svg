@@ -40,7 +40,7 @@
     <tspan class="green">/</tspan><tspan class="bright">agent-skills</tspan>
   </text>
   <text x="1148" y="178" font-size="19" font-style="italic" text-anchor="end" class="muted">du vibecode au shippable</text>
-  <text x="1148" y="206" font-size="13" text-anchor="end" class="subtle">10 skills · format SKILL.md · rodés sur de vrais repos</text>
+  <text x="1148" y="206" font-size="13" text-anchor="end" class="subtle">11 skills · format SKILL.md · rodés sur de vrais repos</text>
 
   <!-- pipeline -->
   <line x1="1" y1="252" x2="1199" y2="252" stroke="#21262D" stroke-width="1.5"/>

@@ -6,8 +6,8 @@ Pipeline visé : **« du vibecode au shippable »** —
 `fluid-pass` (produits UI) avant cleanup-pass, et `doc-ingest`,
 `llm-handover`, `excalidraw-slides` en transverses.
 
-À venir : `spec-lite` — une page de critères d'acceptation avant de vibecoder
-(spec-kit allégé).
+Le pipeline est complet (11 skills). Prochaines pistes : les intégrations
+graphify (voir Inspirations) et un handoff exécutable pour `llm-handover`.
 
 Méthode : design par grilling (rounds de décisions verrouillées), puis rodage
 mesuré sur un vrai repo, puis publication ici. Le détail des rodages est tenu

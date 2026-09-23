@@ -116,7 +116,7 @@
       <div class="wordmark">
         <h1><span class="slash">/</span>agent-skills</h1>
         <div class="tag">du vibecode au shippable</div>
-        <div class="sub">10 skills · format SKILL.md · rodés sur de vrais repos</div>
+        <div class="sub">11 skills · format SKILL.md · rodés sur de vrais repos</div>
       </div>
     </div>
   </div>
@@ -139,7 +139,7 @@
   et le rendre publiable, chaque étape gatée par une preuve.
   (<i>vibecode</i> n'est pas un skill : c'est vous.)</p>
   <div class="pipe">
-    <span class="chip soon">spec-lite</span><span class="arrow">→</span>
+    <a class="chip" href="#spec-lite">spec-lite</a><span class="arrow">→</span>
     <span class="chip you">vibecode</span><span class="arrow">→</span>
     <a class="chip" href="#proof-run">proof-run</a><span class="arrow">→</span>
     <a class="chip" href="#safety-net">safety-net</a><span class="arrow">→</span>
@@ -153,6 +153,12 @@
 
   <!-- CARTES PIPELINE -->
   <div class="grid">
+    <div class="card" id="spec-lite">
+      <h3><span class="slash">/</span>spec-lite</h3>
+      <p class="role">Une page de critères d'acceptation avant de vibecoder — le « quoi et pourquoi » avant le « comment ».</p>
+      <p class="say">« Fais une spec » · « qu'est-ce qu'on construit exactement ? »</p>
+      <p class="get"><b>Vous obtenez :</b> un SPEC.md d'une page, critères observables que proof-run exécute tels quels, vérifié par un agent frais.</p>
+    </div>
     <div class="card" id="proof-run">
       <h3><span class="slash">/</span>proof-run</h3>
       <p class="role">Un vérificateur indépendant pilote la vraie app et prouve que la feature marche.</p>
@@ -194,11 +200,6 @@
       <p class="role">Audit pré-publication : secrets (historique git compris), dépendances, RLS, surface applicative.</p>
       <p class="say">« Peut-on publier ce repo ? » · « passe-le en public »</p>
       <p class="get"><b>Vous obtenez :</b> un verdict GO/NO-GO par section, rapport SHIP-REPORT.md.</p>
-    </div>
-    <div class="card" id="spec-lite" style="border-style:dashed">
-      <h3><span class="slash">/</span>spec-lite <span style="color:var(--subtle);font-size:.75rem">— à venir</span></h3>
-      <p class="role">Une page de critères d'acceptation avant de vibecoder.</p>
-      <p class="get">En backlog — voir la <a href="https://github.com/Aximande/agent-skills/blob/main/ROADMAP.md">roadmap</a>.</p>
     </div>
   </div>
 

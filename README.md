@@ -15,7 +15,7 @@ for Claude Code, Codex CLI, Cursor and any compatible tool.)*
 <br/>
 
 [![Format SKILL.md](https://img.shields.io/badge/format-SKILL.md-58A6FF?style=flat-square)](https://agentskills.io)
-![Skills](https://img.shields.io/badge/skills-10-3FB950?style=flat-square)
+![Skills](https://img.shields.io/badge/skills-11-3FB950?style=flat-square)
 ![Compatible](https://img.shields.io/badge/Claude_Code_·_Codex_·_Cursor-compatible-8957E5?style=flat-square)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-8B949E?style=flat-square)](LICENSE)
 
@@ -41,6 +41,7 @@ flowchart LR
 
 | Skill | Rôle |
 |---|---|
+| [`spec-lite`](skills/spec-lite/SKILL.md) | Une page de critères d'acceptation avant de vibecoder — observables, exécutables tels quels par proof-run |
 | [`proof-run`](skills/proof-run/SKILL.md) | Un vérificateur indépendant pilote la vraie app et embarque la preuve dans la PR |
 | [`safety-net`](skills/safety-net/SKILL.md) | Tests de caractérisation sur un repo non testé, prouvés par sabotage |
 | [`react-doctor`](skills/react-doctor/SKILL.md) | Diagnostic React/Next : pose le lint hooks, audite ce que le lint ne voit pas |
@@ -48,8 +49,6 @@ flowchart LR
 | [`cleanup-pass`](skills/cleanup-pass/SKILL.md) | Code plus court à comportement constant, gaté par les tests du repo |
 | [`docs-pass`](skills/docs-pass/SKILL.md) | Un README dont chaque commande a réellement été exécutée |
 | [`ship-check`](skills/ship-check/SKILL.md) | Audit pré-publication : secrets, dépendances, RLS, surface applicative |
-
-`spec-lite`, en tête de pipeline, est encore en backlog ([ROADMAP](ROADMAP.md)).
 
 En dehors du pipeline, trois skills transverses :
 
