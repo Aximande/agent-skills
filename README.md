@@ -2,20 +2,41 @@
   <img src="assets/banner.svg" alt="agent-skills, du vibecode au shippable" width="100%">
 </p>
 
-# agent-skills
+<div align="center">
 
-Des skills rodés, pas des prompts. Onze skills au format ouvert
-[SKILL.md](https://agentskills.io) pour faire passer un projet vibecodé,
-qui « marche sur ma machine », au stade publiable. Ils marchent avec
-Claude Code, Codex CLI, Cursor et tout outil compatible.
+**Des skills rodés, pas des prompts.**
+
+[![Format SKILL.md](https://img.shields.io/badge/format-SKILL.md-58A6FF?style=flat-square)](https://agentskills.io)
+![Skills](https://img.shields.io/badge/skills-11-3FB950?style=flat-square)
+![Compatible](https://img.shields.io/badge/Claude_Code_·_Codex_·_Cursor-compatible-8957E5?style=flat-square)
+[![Licence MIT](https://img.shields.io/badge/licence-MIT-8B949E?style=flat-square)](LICENSE)
+
+**[Première fois avec un agent IA ? Le guide pas à pas →](https://aximande.github.io/agent-skills/)**
+
+</div>
+
+Onze skills au format ouvert [SKILL.md](https://agentskills.io) pour faire
+passer un projet vibecodé, qui « marche sur ma machine », au stade
+publiable. Ils marchent avec Claude Code, Codex CLI, Cursor et tout outil
+compatible.
 
 Chaque skill est mesuré sur un vrai repo avant publication : on sabote le
 code pour vérifier qu'il détecte, et les leçons du terrain sont réécrites
 dedans. Je les ai écrits pour mon propre workflow et je les partage tels
 quels : prenez, adaptez, faites-en les vôtres.
 
-Première fois avec un agent IA ? Le **[guide pas à pas](https://aximande.github.io/agent-skills/)**
-reprend chaque étape, outil par outil.
+## La philosophie
+
+Le moteur vient d'Andrej Karpathy. Il a nommé le *vibe coding* (coder en
+acceptant ce que le modèle propose) et documenté ses pièges : les modèles
+font des assomptions silencieuses, sur-compliquent, gonflent les
+abstractions et touchent du code qu'ils ne comprennent pas. Les
+[4 principes](https://github.com/multica-ai/andrej-karpathy-skills) qui en
+découlent sont le socle de chaque skill : réfléchir avant de coder, la
+simplicité d'abord, des changements chirurgicaux, une exécution guidée
+par des critères vérifiables. Leur traduction ici : toute passe est gatée
+par les tests et le build du repo cible, et ce qui ne peut pas être
+prouvé part en rapport, pas en commit.
 
 ## Installer
 
@@ -65,7 +86,7 @@ avant cleanup-pass, selon le projet :
 |---|---|
 | [`safety-net`](skills/safety-net/SKILL.md) | Le repo n'a pas de tests : un filet de tests de caractérisation, prouvé par sabotage. |
 | [`react-doctor`](skills/react-doctor/SKILL.md) | C'est un repo React ou Next : le lint des hooks posé, et ce que le lint ne voit pas, prouvé au fichier et à la ligne. |
-| [`fluid-pass`](skills/fluid-pass/SKILL.md) | L'interface manque de tenue : gestes 1:1, springs interruptibles, latences mesurées dans la vraie app. |
+| [`fluid-pass`](skills/fluid-pass/SKILL.md) | Vos drags, sheets, carousels ou animations web n'ont pas le feel natif : réponse à l'appui, gestes 1:1, animations interruptibles, reduced-motion, latences mesurées dans la vraie app. |
 | [`cleanup-pass`](skills/cleanup-pass/SKILL.md) | Vous voulez un code plus court sans changer son comportement, chaque commit gaté par vos tests. |
 
 **Publier**, avant de partager ou de déployer
@@ -88,8 +109,14 @@ avant cleanup-pass, selon le projet :
 - Un terminal et `git`. C'est tout pour installer.
 - `proof-run`, `fluid-pass` et `react-doctor` pilotent la vraie app ; pour le web, avec [agent-browser](https://github.com/vercel-labs/agent-browser).
 - `ship-check` scanne les secrets avec [gitleaks](https://github.com/gitleaks/gitleaks) (`brew install gitleaks`).
-- `doc-ingest` convertit avec markitdown, lancé par `uvx` (il faut [uv](https://docs.astral.sh/uv/)).
-- `excalidraw-slides` a besoin d'un accès à Excalidraw : connecteur Excalidraw+ ou fichier `.excalidraw`.
+- `doc-ingest` convertit avec markitdown, lancé par `uvx` (il faut [uv](https://docs.astral.sh/uv/)) ;
+  en option, `rendergit` aplatit un repo entier en une page
+  (`uv tool install git+https://github.com/karpathy/rendergit`).
+- `react-doctor` et `fluid-pass` rechargent la doc du jour via le MCP
+  [Context7](https://github.com/upstash/context7) avant tout diagnostic.
+- `excalidraw-slides` crée et modifie les scènes via le connecteur MCP
+  Excalidraw+ ; sans lui, il produit un fichier `.excalidraw` à importer
+  à la main dans [excalidraw.com](https://excalidraw.com).
 
 ## Organisation du dépôt
 
@@ -104,9 +131,7 @@ agent-skills/
 
 ## Pourquoi « rodés »
 
-Le socle vient des [4 principes d'Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) :
-réfléchir avant de coder, la simplicité d'abord, des changements chirurgicaux,
-des critères vérifiables. Chaque skill naît d'une session de grilling, arrive
+Chaque skill naît d'une session de grilling, arrive
 avec son protocole de mesure écrit avant le premier essai, puis se rode sur un
 vrai repo où l'on injecte des défauts connus. Chaque défaut observé devient une
 ligne du skill. Les inspirations sont créditées dans la [ROADMAP](ROADMAP.md).
