@@ -142,8 +142,7 @@ tels.
 - **Instrumenter par `eval`** : listener d'input horodaté +
   échantillonnage du DOM toutes les 100-150 ms. La latence input→contenu,
   les inputs perdus et un lockout se mesurent ainsi, en chiffres, sans
-  profiler ni vidéo (technique validée au rodage : 535 ms de temps mort
-  mesurées sur un `mode="wait"`).
+  profiler ni vidéo (technique validée au rodage).
 - Enregistrer l'interaction et la relire image par image : les défauts de
   seam et de saut sont invisibles à pleine vitesse.
 - Un fix de feel n'entre en commit que si le repro avant/après montre la

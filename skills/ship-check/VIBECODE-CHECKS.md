@@ -1,9 +1,9 @@
 # Les 10 trous récurrents du vibecode — checklist de revue statique
 
-Référence de la section 5 de ship-check. Source : captures de bonnes
-pratiques collectées par l'utilisateur (audit informel Express/Expo +
-carrousel « Security holes I find in almost every vibecoded app ») —
-extraites le 03/09/2026. Chaque item se vérifie dans le code, avec son test.
+Référence de la section 5 de ship-check. Source : bonnes pratiques de
+sécurité compilées de revues publiques d'apps vibecodées (audits
+Express/Expo, « Security holes I find in almost every vibecoded app »).
+Chaque item se vérifie dans le code, avec son test.
 
 ## 1. IDOR — autorisation par ressource
 
