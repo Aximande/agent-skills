@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le guide pas à pas · agent-skills</title>
+<meta name="description" content="Tutoriel complet : installer et utiliser les agent-skills sur Claude Code, Cursor, Codex, Claude et ChatGPT, du premier terminal au premier run.">
+<style>
+  :root {
+    --bg: #0D1117; --card: #161B22; --border: #30363D; --line: #21262D;
+    --text: #E6EDF3; --muted: #8B949E; --subtle: #6E7681;
+    --green: #3FB950; --lime: #7EE787; --blue: #58A6FF; --amber: #D29922;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text);
+    font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    padding: 24px 16px 80px; }
+  .wrap { max-width: 800px; margin: 0 auto; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code { font-family: var(--mono); background: #1F242C; border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: .88em; }
+
+  .topnav { display: flex; align-items: baseline; gap: 14px; margin-bottom: 34px; font-family: var(--mono); }
+  .topnav .name { font-weight: 700; font-size: 1.05rem; }
+  .topnav .name .slash { color: var(--green); }
+  .topnav a.back { margin-left: auto; font-size: .85rem; color: var(--muted); }
+
+  h1 { font-size: 1.9rem; letter-spacing: -0.01em; margin-bottom: 8px; }
+  p.lead { color: var(--muted); max-width: 65ch; }
+
+  .toc { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 26px 0 10px; font-size: .92rem; }
+  .toc b { display: block; margin-bottom: 6px; }
+  .toc ol { padding-left: 20px; color: var(--muted); }
+  .toc li { margin: 3px 0; }
+
+  h2 { font-size: 1.35rem; margin: 54px 0 4px; letter-spacing: -0.01em; }
+  h2 .n { font-family: var(--mono); color: var(--green); font-size: 1rem; margin-right: 8px; }
+  h2 + p, h3 + p { color: var(--muted); }
+  h3 { font-size: 1.05rem; margin: 30px 0 4px; }
+  section > p { color: var(--muted); max-width: 68ch; margin: 10px 0; }
+  section p b, .dep b { color: var(--text); }
+
+  /* fenêtre terminal */
+  .win { background: #0A0D12; border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; margin: 16px 0; }
+  .win-bar { display: flex; align-items: center; gap: 7px; padding: 9px 14px; border-bottom: 1px solid var(--line); }
+  .win-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .win-bar span { margin: 0 auto; color: var(--subtle); font: 11px var(--mono); }
+  .win pre { margin: 0; border: 0; border-radius: 0; background: none; padding: 14px 16px; overflow-x: auto;
+    font: 13.5px/1.7 var(--mono); color: var(--text); position: relative; }
+  .p { color: var(--muted); }   /* prompt */
+  .ok { color: var(--green); }
+  .cmd { color: var(--lime); font-weight: 700; }
+  .dim { color: var(--subtle); }
+  .out { color: var(--muted); }
+
+  /* zone de commande à copier */
+  .cmdbox { position: relative; background: #0A0D12; border: 1px solid var(--border); border-radius: 10px; margin: 14px 0; }
+  .cmdbox pre { margin: 0; padding: 14px 90px 14px 16px; overflow-x: auto; font: 13.5px/1.7 var(--mono); color: var(--text); }
+  .copy { position: absolute; top: 9px; right: 9px; background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted); font: 11.5px var(--mono); padding: 4px 10px; cursor: pointer; }
+  .copy:hover { color: var(--text); border-color: var(--blue); }
+
+  .check { border-left: 3px solid var(--green); background: #1016122; padding: 10px 16px; border-radius: 0 8px 8px 0;
+    color: var(--muted); font-size: .93rem; margin: 14px 0; }
+  .check b { color: var(--lime); }
+  .warn { border-left: 3px solid var(--amber); padding: 10px 16px; border-radius: 0 8px 8px 0; color: var(--muted); font-size: .93rem; margin: 14px 0; background: #16130B; }
+
+  .steps ol { padding-left: 22px; color: var(--muted); }
+  .steps li { margin: 10px 0; }
+  .steps li b { color: var(--text); }
+
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: .92rem; }
+  th, td { border: 1px solid var(--border); padding: 9px 13px; text-align: left; vertical-align: top; }
+  th { background: var(--card); }
+  td { color: var(--muted); }
+  td code { white-space: nowrap; }
+
+  footer { margin-top: 70px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--subtle); font-size: .87rem;
+    display: flex; flex-wrap: wrap; gap: 8px 24px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav">
+    <span class="name"><span class="slash">/</span>agent-skills</span>
+    <a class="back" href="./">← retour à la vue d'ensemble</a>
+  </nav>
+
+  <h1>Le guide pas à pas</h1>
+  <p class="lead">De zéro à votre premier skill qui tourne, même si vous n'avez jamais
+  ouvert un terminal. Chaque étape montre la commande à taper et ce que vous devez
+  voir à l'écran.</p>
+
+  <div class="toc">
+    <b>Sommaire</b>
+    <ol>
+      <li><a href="#comprendre">Comprendre ce qu'on installe</a></li>
+      <li><a href="#prerequis">Vérifier les prérequis</a></li>
+      <li><a href="#installer">Installer les skills</a></li>
+      <li><a href="#verifier">Vérifier que ça marche</a></li>
+      <li><a href="#premier-run">Votre premier run, commenté</a></li>
+      <li><a href="#autres-outils">Sur les autres outils : Cursor, Codex, Claude, ChatGPT</a></li>
+      <li><a href="#maj">Mettre à jour, désinstaller</a></li>
+      <li><a href="#depannage">Dépannage</a></li>
+    </ol>
+  </div>
+
+  <section id="comprendre">
+    <h2><span class="n">1.</span>Comprendre ce qu'on installe</h2>
+    <p>Un skill est un fichier d'instructions (<code>SKILL.md</code>, du markdown
+    lisible par un humain) que votre agent IA charge quand la tâche correspond.
+    Vous ne codez rien : vous placez ces fichiers là où votre outil les cherche,
+    et c'est tout. Quand vous direz « nettoie ce repo », l'agent lira le protocole
+    de <code>cleanup-pass</code> et le suivra au lieu d'improviser.</p>
+    <p><b>Ce que l'installation fait concrètement</b> : elle télécharge le dépôt
+    une fois, puis crée des liens vers ses skills dans trois dossiers standards
+    (<code>~/.claude/skills</code> pour Claude Code, <code>~/.agents/skills</code>
+    pour Codex, <code>~/.cursor/commands</code> pour Cursor). Un seul exemplaire,
+    tous vos outils le voient.</p>
+  </section>
+
+  <section id="prerequis">
+    <h2><span class="n">2.</span>Vérifier les prérequis</h2>
+    <p>Il vous faut un terminal et <code>git</code>. Sur Mac, ouvrez l'application
+    <b>Terminal</b> (⌘ + espace, tapez « Terminal », Entrée). Puis vérifiez git :</p>
+    <div class="cmdbox"><pre>git --version</pre><button class="copy">copier</button></div>
+    <div class="win">
+      <div class="win-bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span>Terminal</span></div>
+      <pre><span class="p">~ $ </span>git --version
+<span class="out">git version 2.44.0</span></pre>
+    </div>
+    <div class="check"><b>✓ Vous devez voir</b> : un numéro de version, peu importe lequel.</div>
+    <div class="warn">Si le Mac propose d'installer les « outils de développement en
+    ligne de commande », acceptez : c'est l'installation officielle de git (2 à 10
+    minutes). Sur Windows, installez <a href="https://git-scm.com/downloads">Git for
+    Windows</a> et utilisez « Git Bash ». Relancez ensuite la commande.</div>
+  </section>
+
+  <section id="installer">
+    <h2><span class="n">3.</span>Installer les skills</h2>
+    <p>Deux commandes. La première télécharge le dépôt dans votre dossier courant,
+    la seconde entre dedans et lance l'installeur :</p>
+    <div class="cmdbox"><pre>git clone https://github.com/Aximande/agent-skills.git
+cd agent-skills && ./install.sh</pre><button class="copy">copier</button></div>
+    <div class="win">
+      <div class="win-bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span>Terminal</span></div>
+      <pre><span class="p">~ $ </span>git clone https://github.com/Aximande/agent-skills.git
+<span class="out">Clonage dans 'agent-skills'...
+Réception d'objets: 100%, fait.</span>
+<span class="p">~ $ </span>cd agent-skills && ./install.sh
+<span class="ok">✓</span> <span class="out">/Users/vous/.claude/skills/cleanup-pass</span>
+<span class="ok">✓</span> <span class="out">/Users/vous/.agents/skills/cleanup-pass</span>
+<span class="ok">✓</span> <span class="out">~/.cursor/commands/cleanup-pass.md</span>
+<span class="dim">… même chose pour chacun des 11 skills …</span>
+<span class="ok">✓</span> <span class="out">~/.cursor/commands/spec-lite.md</span></pre>
+    </div>
+    <div class="check"><b>✓ Vous devez voir</b> : trois lignes « ✓ » par skill, sans
+    message d'erreur. C'est fini : rien d'autre à configurer.</div>
+  </section>
+
+  <section id="verifier">
+    <h2><span class="n">4.</span>Vérifier que ça marche</h2>
+    <p>Ouvrez (ou rouvrez) une session de votre agent <b>dans un projet</b>, par
+    exemple Claude Code, et tapez le nom d'un skill précédé d'un slash :</p>
+    <div class="win">
+      <div class="win-bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span>claude · mon-projet</span></div>
+      <pre><span class="p">~/mon-projet $ </span>claude
+<span class="p">&gt; </span><span class="cmd">/cleanup-pass</span>
+<span class="dim">  cleanup-pass — Repasse de nettoyage sur un repo fonctionnel…</span></pre>
+    </div>
+    <div class="check"><b>✓ Vous devez voir</b> : le skill apparaître dans
+    l'autocomplétion avec sa description. Le langage naturel marche aussi :
+    « nettoie ce repo », « peut-on publier ce repo ? », « prépare un handover ».</div>
+    <div class="warn">Le skill n'apparaît pas ? Les sessions déjà ouvertes ne voient
+    pas les nouveaux skills : fermez et rouvrez la session. Sinon, direction le
+    <a href="#depannage">dépannage</a>.</div>
+  </section>
+
+  <section id="premier-run">
+    <h2><span class="n">5.</span>Votre premier run, commenté</h2>
+    <p>Lancez <code>/cleanup-pass</code> sur un vrai projet pour voir la mécanique.
+    Voici à quoi ressemble un run, et ce que chaque moment veut dire :</p>
+    <div class="win">
+      <div class="win-bar"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i><span>claude · mon-projet</span></div>
+      <pre><span class="p">&gt; </span><span class="cmd">/cleanup-pass</span>
+<span class="out">Préflight : 42 tests verts, build OK. Baseline posée.</span>
+<span class="dim">   ① le skill relève d'abord l'état de VOS tests : c'est son filet</span>
+<span class="out">Passe 1 : dead code retiré dans utils.py (−38 lignes)…
+Gate : tests 42/42 verts, build OK → commit.</span>
+<span class="dim">   ② chaque changement n'est commité que si vos tests restent verts</span>
+<span class="out">Rapport : 2 propositions non commitées dans .cleanup/
+(refactor risqué → à vous de décider)</span>
+<span class="dim">   ③ ce qui ne peut pas être prouvé part en rapport, jamais en commit</span></pre>
+    </div>
+    <p>Trois choses à retenir : le skill <b>montre son filet avant de toucher quoi
+    que ce soit</b>, chaque commit est <b>gaté par vos propres tests</b>, et ce qui
+    est risqué finit <b>en rapport pour votre décision</b>, pas en modification
+    silencieuse. Tous les skills du dépôt suivent cette même logique.</p>
+    <div class="warn">Pas de tests dans votre projet ? C'est exactement le cas de
+    <code>/safety-net</code> : il pose d'abord un filet de tests de caractérisation,
+    puis cleanup-pass peut travailler.</div>
+  </section>
+
+  <section id="autres-outils">
+    <h2><span class="n">6.</span>Sur les autres outils</h2>
+
+    <h3>Cursor</h3>
+    <div class="steps"><ol>
+      <li>L'installation de l'étape 3 a déjà créé les commandes.</li>
+      <li>Dans le chat de Cursor, tapez <b><code>/cleanup-pass</code></b> : la
+        commande apparaît et pointe vers le skill.</li>
+    </ol></div>
+
+    <h3>Codex CLI (OpenAI)</h3>
+    <div class="steps"><ol>
+      <li>L'installation de l'étape 3 a déjà rempli <code>~/.agents/skills/</code>,
+        le dossier du standard <a href="https://agentskills.io">agentskills.io</a>.</li>
+      <li>Il n'y a pas de slash : demandez en langage naturel (« nettoie ce
+        repo ») et Codex charge le skill dont la description correspond.</li>
+    </ol></div>
+
+    <h3>Claude (application de bureau et claude.ai)</h3>
+    <div class="steps"><ol>
+      <li>Sur <a href="https://github.com/Aximande/agent-skills">le dépôt GitHub</a>,
+        bouton vert <b>Code</b> → <b>Download ZIP</b>, puis dézippez.</li>
+      <li>Compressez le dossier du skill voulu : clic droit sur
+        <code>skills/cleanup-pass</code> → <b>Compresser</b>.</li>
+      <li>Dans Claude : <b>Réglages → Fonctionnalités → Skills</b> (l'intitulé peut
+        varier selon la version) → importez le zip.</li>
+      <li>Dans une conversation, demandez : « nettoie ce repo avec cleanup-pass ».</li>
+    </ol></div>
+
+    <h3>ChatGPT, Gemini, ou tout autre chat</h3>
+    <div class="steps"><ol>
+      <li>Ouvrez le skill sur GitHub, par exemple
+        <a href="https://github.com/Aximande/agent-skills/blob/main/skills/cleanup-pass/SKILL.md">cleanup-pass/SKILL.md</a>,
+        cliquez <b>Raw</b>, sélectionnez tout (⌘A) et copiez.</li>
+      <li>Collez dans la conversation, précédé de cette consigne :</li>
+    </ol></div>
+    <div class="cmdbox"><pre>Lis ce document et exécute-le exactement comme prescrit,
+du préflight à la livraison, sans sauter d'étape.</pre><button class="copy">copier</button></div>
+    <div class="steps"><ol start="3">
+      <li>Ajoutez votre demande et, comme le chat ne voit pas vos fichiers,
+        collez aussi le code ou le document concerné.</li>
+      <li><b>Pour un usage durable</b> : créez un Projet ChatGPT (ou un GPT
+        personnalisé) et ajoutez le fichier <code>SKILL.md</code> à ses fichiers.
+        Le skill s'applique alors à toutes les conversations du projet.</li>
+    </ol></div>
+
+    <h3>Certains skills demandent un outil en plus</h3>
+    <table>
+      <tr><th>Skill</th><th>Outil</th><th>Installation</th></tr>
+      <tr><td><code>proof-run</code>, <code>fluid-pass</code>, <code>react-doctor</code></td>
+        <td>pilotage de la vraie app web</td>
+        <td><a href="https://github.com/vercel-labs/agent-browser">agent-browser</a></td></tr>
+      <tr><td><code>ship-check</code></td><td>scan de secrets</td>
+        <td><code>brew install gitleaks</code></td></tr>
+      <tr><td><code>doc-ingest</code></td><td>conversion de documents</td>
+        <td><a href="https://docs.astral.sh/uv/">uv</a> (markitdown est lancé via <code>uvx</code>)</td></tr>
+      <tr><td><code>react-doctor</code>, <code>fluid-pass</code></td><td>doc à jour de React et des libs</td>
+        <td>MCP <a href="https://github.com/upstash/context7">Context7</a></td></tr>
+      <tr><td><code>excalidraw-slides</code></td><td>accès à Excalidraw</td>
+        <td>connecteur MCP Excalidraw+ ; sans lui, le skill produit un fichier
+        <code>.excalidraw</code> à importer sur <a href="https://excalidraw.com">excalidraw.com</a></td></tr>
+    </table>
+    <p>Sans l'outil, le skill vous le dit au préflight et bascule en mode
+    dégradé quand c'est possible, au lieu d'inventer un résultat.</p>
+  </section>
+
+  <section id="maj">
+    <h2><span class="n">7.</span>Mettre à jour, désinstaller</h2>
+    <p><b>Mettre à jour</b> : les skills sont des liens vers votre clone, donc une
+    seule commande met tout à jour, pour tous les outils :</p>
+    <div class="cmdbox"><pre>cd agent-skills && git pull</pre><button class="copy">copier</button></div>
+    <p><b>Désinstaller</b> : supprimez les liens (vos autres skills ne sont pas
+    touchés, on ne supprime que ceux de ce dépôt) :</p>
+    <div class="cmdbox"><pre>cd agent-skills
+for s in skills/*/; do n=$(basename "$s");
+  rm -f ~/.claude/skills/"$n" ~/.agents/skills/"$n" ~/.cursor/commands/"$n".md;
+done</pre><button class="copy">copier</button></div>
+  </section>
+
+  <section id="depannage">
+    <h2><span class="n">8.</span>Dépannage</h2>
+    <table>
+      <tr><th>Symptôme</th><th>Cause probable et remède</th></tr>
+      <tr><td>« permission denied » au lancement de <code>./install.sh</code></td>
+        <td>Le fichier n'est pas exécutable : <code>chmod +x install.sh</code> puis relancez.</td></tr>
+      <tr><td>Le skill n'apparaît pas dans Claude Code</td>
+        <td>Les sessions ouvertes ne rechargent pas les skills : fermez et rouvrez.
+        Vérifiez le lien : <code>ls ~/.claude/skills/</code> doit lister les 11 noms.</td></tr>
+      <tr><td>Votre outil ne suit pas les liens symboliques</td>
+        <td>Relancez avec une copie réelle : <code>./install.sh --copy</code>
+        (à refaire après chaque <code>git pull</code>).</td></tr>
+      <tr><td><code>git clone</code> échoue (réseau d'entreprise, proxy)</td>
+        <td>Téléchargez le ZIP depuis GitHub (bouton Code → Download ZIP),
+        dézippez, puis lancez <code>./install.sh</code> dans le dossier.</td></tr>
+      <tr><td>L'agent ignore le skill et improvise</td>
+        <td>Les skills se déclenchent sur demande explicite : nommez-le
+        (« passe cleanup-pass ») ou utilisez le slash. C'est voulu : une repasse
+        sanctionnée, pas un réflexe permanent.</td></tr>
+    </table>
+    <p>Un cas non couvert ? <a href="https://github.com/Aximande/agent-skills/issues">Ouvrez une issue</a>.</p>
+  </section>
+
+  <footer>
+    <span><a href="./">Vue d'ensemble des 11 skills</a></span>
+    <span><a href="https://github.com/Aximande/agent-skills">github.com/Aximande/agent-skills</a></span>
+    <span>Licence MIT</span>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll(".copy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const pre = btn.closest(".cmdbox").querySelector("pre");
+      try {
+        navigator.clipboard.writeText(pre.textContent.trim());
+        btn.textContent = "copié ✓";
+        setTimeout(() => (btn.textContent = "copier"), 1600);
+      } catch (e) { btn.textContent = "sélectionnez le texte"; }
+    });
+  });
+</script>
+</body>
+</html>

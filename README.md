@@ -11,7 +11,7 @@
 ![Compatible](https://img.shields.io/badge/Claude_Code_·_Codex_·_Cursor-compatible-8957E5?style=flat-square)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-8B949E?style=flat-square)](LICENSE)
 
-**[Première fois avec un agent IA ? Le guide pas à pas →](https://aximande.github.io/agent-skills/)**
+**[Première fois avec un agent IA ? Le guide pas à pas →](https://aximande.github.io/agent-skills/guide.html)**
 
 </div>
 
