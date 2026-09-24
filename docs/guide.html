@@ -220,9 +220,22 @@ Gate : tests 42/42 verts, build OK → commit.</span>
     <h3>Cursor</h3>
     <div class="steps"><ol>
       <li>L'installation de l'étape 3 a déjà créé les commandes.</li>
-      <li>Dans le chat de Cursor, tapez <b><code>/cleanup-pass</code></b> : la
-        commande apparaît et pointe vers le skill.</li>
+      <li>Ouvrez le chat (<b>⌘L</b>) et tapez <b><code>/cleanup-pass</code></b> :
+        l'autocomplétion propose le skill.</li>
     </ol></div>
+    <figure>
+      <img src="img/cursor-fenetre.png" width="1600" height="1000" loading="lazy"
+        alt="Cursor ouvert sur le dépôt agent-skills : le chat New Agent affiche l'autocomplétion de /cleanup-pass">
+      <figcaption>Capture réelle de Cursor sur le dépôt : ⌘L ouvre le chat,
+      taper le slash déclenche l'autocomplétion.</figcaption>
+    </figure>
+    <figure class="small">
+      <img src="img/cursor-autocomplete.png" width="480" height="300" loading="lazy"
+        alt="Le menu d'autocomplétion : deux entrées /cleanup-pass et la suggestion /safety-net">
+      <figcaption>Deux entrées /cleanup-pass apparaissent : la commande installée
+      par install.sh et le skill du standard agent-skills — les deux mènent au
+      même protocole. Prenez l'une ou l'autre.</figcaption>
+    </figure>
 
     <h3>Codex CLI (OpenAI)</h3>
     <div class="steps"><ol>
