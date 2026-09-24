@@ -139,4 +139,20 @@ ligne du skill. Les inspirations sont créditées dans la [ROADMAP](ROADMAP.md).
 ## Licence
 
 [MIT](LICENSE). Le socle conceptuel hérite d'andrej-karpathy-skills (MIT).
-Un projet personnel d'[Alexandre Lavallée](https://alexandrelavallee.com).
+
+---
+
+<p align="center">
+  <a href="https://alexandrelavallee.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/logo-sombre.png">
+      <img src="assets/logo-clair.png" alt="Alexandre Lavallée" width="54">
+    </picture>
+  </a>
+</p>
+
+<p align="center">
+  Derrière ces skills : <b>Alexandre Lavallée</b>.<br>
+  Pour en savoir plus, ou pour travailler avec moi :
+  <a href="https://alexandrelavallee.com"><b>alexandrelavallee.com</b></a>
+</p>
