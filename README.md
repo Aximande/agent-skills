@@ -2,164 +2,114 @@
   <img src="assets/banner.svg" alt="agent-skills, du vibecode au shippable" width="100%">
 </p>
 
-<div align="center">
+# agent-skills
 
-**Des skills rodés, pas des prompts.**
+Des skills rodés, pas des prompts. Onze skills au format ouvert
+[SKILL.md](https://agentskills.io) pour faire passer un projet vibecodé,
+qui « marche sur ma machine », au stade publiable. Ils marchent avec
+Claude Code, Codex CLI, Cursor et tout outil compatible.
 
-Chaque skill est mesuré sur un vrai repo avant publication : on sabote le code
-pour vérifier qu'il détecte, et les leçons du terrain sont réécrites dans le skill.
-
-*(Battle-tested agent skills in the open [SKILL.md](https://agentskills.io) format,
-for Claude Code, Codex CLI, Cursor and any compatible tool.)*
-
-Des skills pensés pour mon propre workflow avant tout, partagés tels
+Chaque skill est mesuré sur un vrai repo avant publication : on sabote le
+code pour vérifier qu'il détecte, et les leçons du terrain sont réécrites
+dedans. Je les ai écrits pour mon propre workflow et je les partage tels
 quels : prenez, adaptez, faites-en les vôtres.
 
-<br/>
+Première fois avec un agent IA ? Le **[guide pas à pas](https://aximande.github.io/agent-skills/)**
+reprend chaque étape, outil par outil.
 
-[![Format SKILL.md](https://img.shields.io/badge/format-SKILL.md-58A6FF?style=flat-square)](https://agentskills.io)
-![Skills](https://img.shields.io/badge/skills-11-3FB950?style=flat-square)
-![Compatible](https://img.shields.io/badge/Claude_Code_·_Codex_·_Cursor-compatible-8957E5?style=flat-square)
-[![Licence MIT](https://img.shields.io/badge/licence-MIT-8B949E?style=flat-square)](LICENSE)
-
-**[Guide visuel & installation pas-à-pas →](https://aximande.github.io/agent-skills/)**
-
-</div>
-
----
-
-## La philosophie
-
-Le moteur vient d'Andrej Karpathy. Il a nommé le *vibe coding* (coder en
-acceptant ce que le modèle propose) et documenté ses pièges : les modèles
-font des assomptions silencieuses, sur-compliquent, gonflent les
-abstractions et touchent du code qu'ils ne comprennent pas. Les
-[4 principes](https://github.com/multica-ai/andrej-karpathy-skills) qui en
-découlent sont le socle de chaque skill : réfléchir avant de coder, la
-simplicité d'abord, des changements chirurgicaux, une exécution guidée
-par des critères vérifiables. Leur traduction opérationnelle ici : toute
-passe est gatée par les tests et le build du repo cible, et ce qui ne
-peut pas être prouvé part en rapport, pas en commit.
-
-## Le pipeline
-
-Partir d'un repo vibecodé qui « marche sur ma machine » et le rendre shippable,
-chaque étape gatée par une preuve. (*vibecode* n'est pas un skill : c'est vous.)
-
-```mermaid
-flowchart LR
-    SL([spec-lite]) --> VC{{vibecode}} --> PR([proof-run]) --> SN([safety-net]) --> CP([cleanup-pass]) --> DP([docs-pass]) --> SC([ship-check])
-    SN -. repo React .-> RD([react-doctor])
-    RD -.-> CP
-    SN -. produit UI .-> FP([fluid-pass])
-    FP -.-> CP
-```
-
-| Skill | Rôle |
-|---|---|
-| [`spec-lite`](skills/spec-lite/SKILL.md) | Une page de critères d'acceptation avant de vibecoder : observables, exécutables tels quels par proof-run |
-| [`proof-run`](skills/proof-run/SKILL.md) | Un vérificateur indépendant pilote la vraie app et embarque la preuve dans la PR |
-| [`safety-net`](skills/safety-net/SKILL.md) | Tests de caractérisation sur un repo non testé, prouvés par sabotage |
-| [`react-doctor`](skills/react-doctor/SKILL.md) | Diagnostic React/Next : pose le lint hooks, audite ce que le lint ne voit pas |
-| [`fluid-pass`](skills/fluid-pass/SKILL.md) | Repasse « feel » à la Apple : gestes 1:1, springs interruptibles, latences mesurées dans la vraie app ; mode amélioration anti-template |
-| [`cleanup-pass`](skills/cleanup-pass/SKILL.md) | Code plus court à comportement constant, gaté par les tests du repo |
-| [`docs-pass`](skills/docs-pass/SKILL.md) | Un README dont chaque commande a réellement été exécutée |
-| [`ship-check`](skills/ship-check/SKILL.md) | Audit pré-publication : secrets, dépendances, RLS, surface applicative |
-
-En dehors du pipeline, trois skills transverses :
-
-| Skill | Rôle |
-|---|---|
-| [`doc-ingest`](skills/doc-ingest/SKILL.md) | PDF et documents Office convertis en markdown pour le contexte agent |
-| [`llm-handover`](skills/llm-handover/SKILL.md) | Handover vers un autre LLM, vérifié par un agent frais qui ne voit que le document |
-| [`excalidraw-slides`](skills/excalidraw-slides/SKILL.md) | Présentations Excalidraw éditables, avec notes orales et contrôle visuel |
-
-## Installation
+## Installer
 
 ```bash
 git clone https://github.com/Aximande/agent-skills.git
 cd agent-skills && ./install.sh
 ```
 
-`install.sh` symlinke les skills vers les emplacements standards : un seul
-exemplaire, mis à jour par `git pull` (`--copy` pour copier au lieu de symlinker).
-Seuls prérequis : un terminal et git. Première fois avec un agent IA ? Le
-[guide visuel](https://aximande.github.io/agent-skills/#install) reprend chaque
-étape outil par outil.
+Un seul exemplaire des skills, relié à Claude Code, Codex CLI et Cursor.
+`git pull` dans le dossier suffit pour tout mettre à jour.
 
-<details>
-<summary><strong>Claude Code</strong></summary>
-<br/>
+| Outil | Comment |
+|---|---|
+| Claude Code | Après `install.sh` : tapez `/cleanup-pass`, ou dites « nettoie ce repo » |
+| Codex CLI | Après `install.sh` : le skill se charge seul quand la demande correspond |
+| Cursor | Après `install.sh` : tapez `/cleanup-pass` dans le chat |
+| Claude (app, claude.ai) | Zippez `skills/<nom>/`, importez-le dans Réglages → Fonctionnalités → Skills |
+| Sans cloner | `npx skills add Aximande/agent-skills` copie les skills choisis dans votre projet |
+| ChatGPT, Gemini, autre chat | Collez le SKILL.md avec « Lis ce document et exécute-le exactement comme prescrit » |
 
-Symlinks vers `~/.claude/skills/` : slash commands (`/cleanup-pass`,
-`/ship-check`…) ou langage naturel (« nettoie ce repo »).
+## Le pipeline
 
-</details>
+Du vibecode au shippable, chaque étape ne passe la main que sur une preuve.
 
-<details>
-<summary><strong>Claude (app de bureau &amp; claude.ai)</strong></summary>
-<br/>
+```text
+spec-lite → vibecode → proof-run → safety-net → cleanup-pass → docs-pass → ship-check
 
-Téléchargez le repo (Code → Download ZIP), compressez le dossier du skill
-voulu (ex. `skills/cleanup-pass/`), puis importez le zip dans
-Réglages → Fonctionnalités → Skills. Demandez ensuite en langage naturel
-(« nettoie ce repo avec cleanup-pass »).
-
-</details>
-
-<details>
-<summary><strong>Codex CLI et le standard agent-skills</strong></summary>
-<br/>
-
-Symlinks vers `~/.agents/skills/`, chargés automatiquement quand la tâche
-correspond.
-
-</details>
-
-<details>
-<summary><strong>Cursor</strong></summary>
-<br/>
-
-Commandes générées dans `~/.cursor/commands/`, pointant vers le SKILL.md du clone.
-
-</details>
-
-<details>
-<summary><strong>Sans cloner</strong></summary>
-<br/>
-
-```bash
-npx skills add Aximande/agent-skills
+avant cleanup-pass, selon le projet :
+  + react-doctor   si le repo est en React ou Next
+  + fluid-pass     si le produit a une interface
 ```
 
-Copie les skills choisis comme fichiers éditables dans votre projet.
-`npx skills update` pour récupérer les dernières versions.
+*vibecode* n'est pas un skill : c'est vous.
 
-</details>
+## Les skills (quand utiliser lequel)
 
-<details>
-<summary><strong>ChatGPT et tout autre chat (Gemini, Le Chat…)</strong></summary>
-<br/>
+**Cadrer et prouver**, avant et juste après avoir codé
 
-Le SKILL.md est du markdown autoporteur. Ouvrez-le sur GitHub (bouton Raw),
-copiez tout, collez dans la conversation avec la consigne « Lis ce document
-et exécute-le exactement comme prescrit », puis votre demande. Pour un usage
-durable dans ChatGPT, ajoutez le fichier à un Projet ou un GPT personnalisé.
+| Skill | À utiliser quand… |
+|---|---|
+| [`spec-lite`](skills/spec-lite/SKILL.md) | Vous allez vibecoder une feature : une page de critères observables, que proof-run exécutera tels quels. |
+| [`proof-run`](skills/proof-run/SKILL.md) | Vous voulez prouver que la feature marche : un vérificateur indépendant pilote la vraie app et joint la preuve à la PR. |
 
-</details>
+**Assainir**, quand le repo marche mais que personne n'ose y toucher
 
-Pour un usage par projet plutôt que global : copiez `skills/<nom>/` dans le
-`.claude/skills/` du repo, le skill voyage alors avec lui pour toute l'équipe.
+| Skill | À utiliser quand… |
+|---|---|
+| [`safety-net`](skills/safety-net/SKILL.md) | Le repo n'a pas de tests : un filet de tests de caractérisation, prouvé par sabotage. |
+| [`react-doctor`](skills/react-doctor/SKILL.md) | C'est un repo React ou Next : le lint des hooks posé, et ce que le lint ne voit pas, prouvé au fichier et à la ligne. |
+| [`fluid-pass`](skills/fluid-pass/SKILL.md) | L'interface manque de tenue : gestes 1:1, springs interruptibles, latences mesurées dans la vraie app. |
+| [`cleanup-pass`](skills/cleanup-pass/SKILL.md) | Vous voulez un code plus court sans changer son comportement, chaque commit gaté par vos tests. |
 
-## La méthode
+**Publier**, avant de partager ou de déployer
 
-Un skill naît d'une session de grilling : des rounds de questions serrées
-jusqu'à ce que les décisions soient verrouillées. La v1 arrive avec son
-protocole de mesure, écrit avant le premier run. Le rodage se fait sur un
-vrai repo, jamais sur un exemple jouet : on y injecte des pathologies connues
-pour vérifier que le skill les attrape, et chaque défaut observé devient une
-ligne du SKILL.md. Toutes les inspirations sont créditées dans la
-[ROADMAP](ROADMAP.md).
+| Skill | À utiliser quand… |
+|---|---|
+| [`docs-pass`](skills/docs-pass/SKILL.md) | Le README doit être juste : chaque commande est réellement exécutée, le contexte agent (CLAUDE.md) audité. |
+| [`ship-check`](skills/ship-check/SKILL.md) | Vous allez passer le repo en public ou le déployer : secrets, dépendances, RLS, surface applicative, verdict GO/NO-GO. |
+
+**Au quotidien**, en dehors du pipeline
+
+| Skill | À utiliser quand… |
+|---|---|
+| [`doc-ingest`](skills/doc-ingest/SKILL.md) | Un PDF, un Word ou un Excel doit entrer dans le contexte de l'agent, en markdown propre. |
+| [`llm-handover`](skills/llm-handover/SKILL.md) | Vous passez la main à un autre agent : état, décisions et prochaine action, vérifiés par un agent frais. |
+| [`excalidraw-slides`](skills/excalidraw-slides/SKILL.md) | Il vous faut une présentation Excalidraw éditable, avec notes orales et contrôle visuel. |
+
+## Prérequis
+
+- Un terminal et `git`. C'est tout pour installer.
+- `proof-run`, `fluid-pass` et `react-doctor` pilotent la vraie app ; pour le web, avec [agent-browser](https://github.com/vercel-labs/agent-browser).
+- `ship-check` scanne les secrets avec [gitleaks](https://github.com/gitleaks/gitleaks) (`brew install gitleaks`).
+- `doc-ingest` convertit avec markitdown, lancé par `uvx` (il faut [uv](https://docs.astral.sh/uv/)).
+- `excalidraw-slides` a besoin d'un accès à Excalidraw : connecteur Excalidraw+ ou fichier `.excalidraw`.
+
+## Organisation du dépôt
+
+```text
+agent-skills/
+├── install.sh            relie les skills à Claude Code, Codex CLI et Cursor
+├── skills/<nom>/
+│   └── SKILL.md          le skill, en markdown autoporteur
+├── docs/index.html       le guide pas à pas (aximande.github.io/agent-skills)
+└── ROADMAP.md            la méthode et les inspirations créditées
+```
+
+## Pourquoi « rodés »
+
+Le socle vient des [4 principes d'Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) :
+réfléchir avant de coder, la simplicité d'abord, des changements chirurgicaux,
+des critères vérifiables. Chaque skill naît d'une session de grilling, arrive
+avec son protocole de mesure écrit avant le premier essai, puis se rode sur un
+vrai repo où l'on injecte des défauts connus. Chaque défaut observé devient une
+ligne du skill. Les inspirations sont créditées dans la [ROADMAP](ROADMAP.md).
 
 ## Licence
 
