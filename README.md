@@ -53,7 +53,7 @@ Un seul exemplaire des skills, relié à Claude Code, Codex CLI et Cursor.
 | Claude Code | Après `install.sh` : tapez `/cleanup-pass`, ou dites « nettoie ce repo » |
 | Codex CLI | Après `install.sh` : le skill se charge seul quand la demande correspond |
 | Cursor | Après `install.sh` : tapez `/cleanup-pass` dans le chat |
-| Claude (app, claude.ai) | Zippez `skills/<nom>/`, importez-le dans Réglages → Fonctionnalités → Skills |
+| Claude (app, claude.ai) | Zippez `skills/<nom>/`, importez-le dans Réglages → Skills → Add → Upload skill |
 | Sans cloner | `npx skills add Aximande/agent-skills` copie les skills choisis dans votre projet |
 | ChatGPT, Gemini, autre chat | Collez le SKILL.md avec « Lis ce document et exécute-le exactement comme prescrit » |
 

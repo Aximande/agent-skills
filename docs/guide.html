@@ -76,6 +76,11 @@
   td { color: var(--muted); }
   td code { white-space: nowrap; }
 
+  figure { border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; margin: 16px 0; background: var(--card); }
+  figure img { width: 100%; display: block; }
+  figure.small { max-width: 480px; }
+  figcaption { padding: 9px 14px; color: var(--subtle); font-size: .84rem; border-top: 1px solid var(--line); }
+
   footer { margin-top: 70px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--subtle); font-size: .87rem;
     display: flex; flex-wrap: wrap; gap: 8px 24px; }
 </style>
@@ -227,9 +232,27 @@ Gate : tests 42/42 verts, build OK → commit.</span>
         bouton vert <b>Code</b> → <b>Download ZIP</b>, puis dézippez.</li>
       <li>Compressez le dossier du skill voulu : clic droit sur
         <code>skills/cleanup-pass</code> → <b>Compresser</b>.</li>
-      <li>Dans Claude : <b>Réglages → Fonctionnalités → Skills</b> (l'intitulé peut
-        varier selon la version) → importez le zip.</li>
-      <li>Dans une conversation, demandez : « nettoie ce repo avec cleanup-pass ».</li>
+      <li>Dans Claude, ouvrez <b>Réglages</b> puis, dans la section
+        <b>Customize</b>, cliquez <b>Skills</b> :</li>
+    </ol></div>
+    <figure>
+      <img src="img/claude-skills-panel.png" width="1014" height="626"
+        alt="Le panneau Réglages de claude.ai, entrée Skills sélectionnée dans la section Customize, bouton Add en haut à droite">
+      <figcaption>Capture réelle de claude.ai : l'entrée Skills (section Customize),
+      le bouton Add en haut à droite. Après import, votre skill apparaît sous
+      « Created by you ».</figcaption>
+    </figure>
+    <div class="steps"><ol start="4">
+      <li>Cliquez <b>Add</b> → <b>Upload skill</b> et sélectionnez votre zip :</li>
+    </ol></div>
+    <figure class="small">
+      <img src="img/claude-skills-add.png" width="451" height="203"
+        alt="Le menu Add ouvert : Upload skill, Create a skill, Create with Claude">
+      <figcaption>Le menu Add : choisissez « Upload skill ».</figcaption>
+    </figure>
+    <div class="steps"><ol start="5">
+      <li>Le skill apparaît sous <b>« Created by you »</b>. Dans une conversation,
+        demandez : « nettoie ce repo avec cleanup-pass ».</li>
     </ol></div>
 
     <h3>ChatGPT, Gemini, ou tout autre chat</h3>
