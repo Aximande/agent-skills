@@ -9,9 +9,9 @@
 <meta name="description" content="10 skills d'agent rodés sur de vrais repos, au format ouvert SKILL.md. Installables sur Claude Code, Claude, Codex CLI, Cursor et tout outil compatible.">
 <style>
   :root {
-    --bg: #0D1117; --card: #161B22; --border: #30363D; --line: #21262D;
-    --text: #E6EDF3; --muted: #8B949E; --subtle: #6E7681;
-    --green: #3FB950; --lime: #7EE787; --blue: #58A6FF; --purple: #BC8CFF;
+    --bg: #1C1C1C; --card: #242424; --border: #494949; --line: #2C2C2C;
+    --text: #FFFFFF; --muted: #778DA9; --subtle: #6B7686;
+    --accent: #1FB5BD; --accent-clair: #84D6DB; --lien: #1FB5BD; --mure: #A663CC;
     --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,10 +21,10 @@
     padding: 24px 16px 80px;
   }
   .wrap { max-width: 980px; margin: 0 auto; }
-  a { color: var(--blue); text-decoration: none; }
+  a { color: var(--lien); text-decoration: none; }
   a:hover { text-decoration: underline; }
   code, .mono { font-family: var(--mono); }
-  code { background: #1F242C; border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: .88em; }
+  code { background: #2C2C2C; border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: .88em; }
 
   /* ---- hero terminal ---- */
   .hero { background: var(--bg); border: 2px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 40px; }
@@ -34,15 +34,15 @@
   .hero-body { padding: 34px 34px 26px; display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; align-items: center; }
   .term { font-family: var(--mono); font-size: 15px; line-height: 2.1; }
   .term .p { color: var(--muted); }
-  .term .cmd { color: var(--lime); font-weight: 700; }
-  .term .ok { color: var(--green); }
+  .term .cmd { color: var(--accent-clair); font-weight: 700; }
+  .term .ok { color: var(--accent); }
   .term .out { color: var(--muted); font-size: 13px; }
-  .cursor { display: inline-block; width: 8px; height: 16px; background: var(--lime); vertical-align: -2px; animation: blink 1.2s steps(1) infinite; }
+  .cursor { display: inline-block; width: 8px; height: 16px; background: var(--accent-clair); vertical-align: -2px; animation: blink 1.2s steps(1) infinite; }
   @keyframes blink { 50% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
   .wordmark { text-align: right; }
   .wordmark h1 { font-family: var(--mono); font-size: clamp(1.9rem, 5vw, 3rem); letter-spacing: -0.02em; }
-  .wordmark h1 .slash { color: var(--green); }
+  .wordmark h1 .slash { color: var(--accent); }
   .wordmark .tag { color: var(--muted); font-style: italic; font-size: 1.05rem; }
   .wordmark .sub { color: var(--subtle); font-family: var(--mono); font-size: .78rem; margin-top: 6px; }
 
@@ -58,14 +58,14 @@
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 15px; }
   .card h3 { font-family: var(--mono); font-size: 1.02rem; margin-bottom: 6px; display: flex; align-items: center; }
   .card h3 .logo { width: 22px; height: 22px; color: var(--text); opacity: .85; margin-left: auto; flex-shrink: 0; }
-  .card h3 .slash { color: var(--green); }
+  .card h3 .slash { color: var(--accent); }
   .card p.role { font-size: .92rem; color: var(--text); margin-bottom: 10px; }
   .card .say { font-size: .84rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 10px; margin-bottom: 10px; font-style: italic; }
   .card .get { font-size: .82rem; color: var(--subtle); }
   .card .get b { color: var(--muted); font-weight: 600; }
 
   /* ---- install ---- */
-  .callout { background: #12181F; border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 8px; padding: 14px 18px; margin: 18px 0; font-size: .95rem; color: var(--muted); }
+  .callout { background: #202020; border: 1px solid var(--border); border-left: 4px solid var(--lien); border-radius: 8px; padding: 14px 18px; margin: 18px 0; font-size: .95rem; color: var(--muted); }
   .callout b { color: var(--text); }
   details { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin: 10px 0; }
   summary { cursor: pointer; padding: 13px 18px; font-weight: 650; list-style: none; display: flex; align-items: center; gap: 10px; }
@@ -76,15 +76,15 @@
   .dbody ol { padding-left: 20px; }
   .dbody li { margin: 9px 0; }
   .dbody li b { color: var(--text); }
-  pre { position: relative; background: #0A0D12; border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; margin: 10px 0; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; color: var(--text); }
+  pre { position: relative; background: #0F0F0F; border: 1px solid var(--border); border-radius: 8px; padding: 13px 15px; margin: 10px 0; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; color: var(--text); }
   pre .c { color: var(--subtle); }
   .copy { position: absolute; top: 8px; right: 8px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font: 11.5px var(--mono); padding: 3px 9px; cursor: pointer; }
-  .copy:hover { color: var(--text); border-color: var(--blue); }
+  .copy:hover { color: var(--text); border-color: var(--lien); }
 
   /* ---- méthode ---- */
   .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 18px; }
   .step { border: 1px solid var(--border); border-radius: 10px; padding: 15px 16px; background: var(--card); }
-  .step .n { font-family: var(--mono); color: var(--green); font-size: .8rem; }
+  .step .n { font-family: var(--mono); color: var(--accent); font-size: .8rem; }
   .step b { display: block; margin: 3px 0 5px; }
   .step p { font-size: .85rem; color: var(--muted); }
 
@@ -156,22 +156,22 @@
   <svg viewBox="0 0 920 200" role="img" aria-label="Pipeline : spec-lite, vibecode, proof-run, safety-net, cleanup-pass, docs-pass, ship-check ; branches conditionnelles react-doctor (repo React) et fluid-pass (produit UI) entre safety-net et cleanup-pass">
     <defs>
       <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-        <path d="M0,0 L8,4 L0,8 z" fill="#6E7681"/>
+        <path d="M0,0 L8,4 L0,8 z" fill="#6B7686"/>
       </marker>
     </defs>
     <style>
-      .pl { fill: #161B22; stroke: #30363D; stroke-width: 1.5; }
-      .tx { fill: #E6EDF3; font: 14px ui-monospace, Menlo, monospace; text-anchor: middle; }
-      .edge { stroke: #6E7681; stroke-width: 1.5; fill: none; }
+      .pl { fill: #242424; stroke: #494949; stroke-width: 1.5; }
+      .tx { fill: #FFFFFF; font: 14px ui-monospace, Menlo, monospace; text-anchor: middle; }
+      .edge { stroke: #6B7686; stroke-width: 1.5; fill: none; }
       .cond { stroke-dasharray: 4 4; }
-      .lbl { fill: #8B949E; font: italic 11.5px ui-monospace, Menlo, monospace; text-anchor: middle; }
-      .diagram a:hover .pl { stroke: #58A6FF; }
+      .lbl { fill: #778DA9; font: italic 11.5px ui-monospace, Menlo, monospace; text-anchor: middle; }
+      .diagram a:hover .pl { stroke: #1FB5BD; }
     </style>
 
     <!-- flux principal -->
     <a href="#spec-lite"><rect class="pl" x="8" y="31" width="100" height="34" rx="17"/><text class="tx" x="58" y="53">spec-lite</text></a>
     <line class="edge" x1="112" y1="48" x2="128" y2="48" marker-end="url(#ah)"/>
-    <rect class="pl" x="134" y="31" width="92" height="34" rx="17" stroke-dasharray="5 4"/><text class="tx" x="180" y="53" style="font-style:italic;fill:#8B949E">vibecode</text>
+    <rect class="pl" x="134" y="31" width="92" height="34" rx="17" stroke-dasharray="5 4"/><text class="tx" x="180" y="53" style="font-style:italic;fill:#778DA9">vibecode</text>
     <line class="edge" x1="230" y1="48" x2="246" y2="48" marker-end="url(#ah)"/>
     <a href="#proof-run"><rect class="pl" x="252" y="31" width="100" height="34" rx="17"/><text class="tx" x="302" y="53">proof-run</text></a>
     <line class="edge" x1="356" y1="48" x2="372" y2="48" marker-end="url(#ah)"/>
@@ -181,12 +181,12 @@
     <line class="edge" x1="641" y1="48" x2="657" y2="48" marker-end="url(#ah)"/>
     <a href="#docs-pass"><rect class="pl" x="663" y="31" width="100" height="34" rx="17"/><text class="tx" x="713" y="53">docs-pass</text></a>
     <line class="edge" x1="767" y1="48" x2="783" y2="48" marker-end="url(#ah)"/>
-    <a href="#ship-check"><rect class="pl" x="789" y="31" width="108" height="34" rx="17" stroke="#2EA04366"/><text class="tx" x="843" y="53" fill="#7EE787">ship-check</text></a>
+    <a href="#ship-check"><rect class="pl" x="789" y="31" width="108" height="34" rx="17" stroke="#2EA04366"/><text class="tx" x="843" y="53" fill="#84D6DB">ship-check</text></a>
 
     <!-- détour optionnel : safety-net → [react-doctor | fluid-pass] → cleanup-pass -->
     <path class="edge cond" d="M 424 65 C 410 78, 402 86, 400 96" marker-end="url(#ah)"/>
     <path class="edge cond" d="M 616 98 C 620 86, 606 78, 596 72" marker-end="url(#ah)"/>
-    <rect x="372" y="100" width="270" height="86" rx="12" fill="none" stroke="#30363D" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <rect x="372" y="100" width="270" height="86" rx="12" fill="none" stroke="#494949" stroke-width="1.5" stroke-dasharray="5 5"/>
     <text class="lbl" x="507" y="117">détour optionnel, selon le projet</text>
     <text class="lbl" x="446" y="135">repo React :</text>
     <text class="lbl" x="575" y="135">produit UI :</text>

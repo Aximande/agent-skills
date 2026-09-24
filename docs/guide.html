@@ -9,9 +9,9 @@
 <meta name="description" content="Tutoriel complet : installer et utiliser les agent-skills sur Claude Code, Cursor, Codex, Claude et ChatGPT, du premier terminal au premier run.">
 <style>
   :root {
-    --bg: #0D1117; --card: #161B22; --border: #30363D; --line: #21262D;
-    --text: #E6EDF3; --muted: #8B949E; --subtle: #6E7681;
-    --green: #3FB950; --lime: #7EE787; --blue: #58A6FF; --amber: #D29922;
+    --bg: #1C1C1C; --card: #242424; --border: #494949; --line: #2C2C2C;
+    --text: #FFFFFF; --muted: #778DA9; --subtle: #6B7686;
+    --accent: #1FB5BD; --accent-clair: #84D6DB; --lien: #1FB5BD; --abricot: #FBA904;
     --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,13 +19,13 @@
     font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     padding: 24px 16px 80px; }
   .wrap { max-width: 800px; margin: 0 auto; }
-  a { color: var(--blue); text-decoration: none; }
+  a { color: var(--lien); text-decoration: none; }
   a:hover { text-decoration: underline; }
-  code { font-family: var(--mono); background: #1F242C; border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: .88em; }
+  code { font-family: var(--mono); background: #2C2C2C; border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: .88em; }
 
   .topnav { display: flex; align-items: baseline; gap: 14px; margin-bottom: 34px; font-family: var(--mono); }
   .topnav .name { font-weight: 700; font-size: 1.05rem; }
-  .topnav .name .slash { color: var(--green); }
+  .topnav .name .slash { color: var(--accent); }
   .topnav a.back { margin-left: auto; font-size: .85rem; color: var(--muted); }
 
   h1 { font-size: 1.9rem; letter-spacing: -0.01em; margin-bottom: 8px; }
@@ -37,36 +37,36 @@
   .toc li { margin: 3px 0; }
 
   h2 { font-size: 1.35rem; margin: 54px 0 4px; letter-spacing: -0.01em; }
-  h2 .n { font-family: var(--mono); color: var(--green); font-size: 1rem; margin-right: 8px; }
+  h2 .n { font-family: var(--mono); color: var(--accent); font-size: 1rem; margin-right: 8px; }
   h2 + p, h3 + p { color: var(--muted); }
   h3 { font-size: 1.05rem; margin: 30px 0 4px; }
   section > p { color: var(--muted); max-width: 68ch; margin: 10px 0; }
   section p b, .dep b { color: var(--text); }
 
   /* fenêtre terminal */
-  .win { background: #0A0D12; border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; margin: 16px 0; }
+  .win { background: #0F0F0F; border: 1.5px solid var(--border); border-radius: 12px; overflow: hidden; margin: 16px 0; }
   .win-bar { display: flex; align-items: center; gap: 7px; padding: 9px 14px; border-bottom: 1px solid var(--line); }
   .win-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
   .win-bar span { margin: 0 auto; color: var(--subtle); font: 11px var(--mono); }
   .win pre { margin: 0; border: 0; border-radius: 0; background: none; padding: 14px 16px; overflow-x: auto;
     font: 13.5px/1.7 var(--mono); color: var(--text); position: relative; }
   .p { color: var(--muted); }   /* prompt */
-  .ok { color: var(--green); }
-  .cmd { color: var(--lime); font-weight: 700; }
+  .ok { color: var(--accent); }
+  .cmd { color: var(--accent-clair); font-weight: 700; }
   .dim { color: var(--subtle); }
   .out { color: var(--muted); }
 
   /* zone de commande à copier */
-  .cmdbox { position: relative; background: #0A0D12; border: 1px solid var(--border); border-radius: 10px; margin: 14px 0; }
+  .cmdbox { position: relative; background: #0F0F0F; border: 1px solid var(--border); border-radius: 10px; margin: 14px 0; }
   .cmdbox pre { margin: 0; padding: 14px 90px 14px 16px; overflow-x: auto; font: 13.5px/1.7 var(--mono); color: var(--text); }
   .copy { position: absolute; top: 9px; right: 9px; background: var(--card); border: 1px solid var(--border); border-radius: 6px;
     color: var(--muted); font: 11.5px var(--mono); padding: 4px 10px; cursor: pointer; }
-  .copy:hover { color: var(--text); border-color: var(--blue); }
+  .copy:hover { color: var(--text); border-color: var(--lien); }
 
-  .check { border-left: 3px solid var(--green); background: #1016122; padding: 10px 16px; border-radius: 0 8px 8px 0;
+  .check { border-left: 3px solid var(--accent); background: #1016122; padding: 10px 16px; border-radius: 0 8px 8px 0;
     color: var(--muted); font-size: .93rem; margin: 14px 0; }
-  .check b { color: var(--lime); }
-  .warn { border-left: 3px solid var(--amber); padding: 10px 16px; border-radius: 0 8px 8px 0; color: var(--muted); font-size: .93rem; margin: 14px 0; background: #16130B; }
+  .check b { color: var(--accent-clair); }
+  .warn { border-left: 3px solid var(--abricot); padding: 10px 16px; border-radius: 0 8px 8px 0; color: var(--muted); font-size: .93rem; margin: 14px 0; background: #2A2415; }
 
   .steps ol { padding-left: 22px; color: var(--muted); }
   .steps li { margin: 10px 0; }
