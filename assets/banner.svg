@@ -1,8 +1,8 @@
 <svg width="1200" height="340" viewBox="0 0 1200 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="agent-skills, du vibecode au shippable">
   <style>
     text { font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
-    .muted  { fill: #778DA9; }
-    .subtle { fill: #6B7686; }
+    .muted  { fill: #A9B1BA; }
+    .subtle { fill: #848D97; }
     .bright { fill: #FFFFFF; }
     .accent  { fill: #1FA48E; }
     .accent-clair   { fill: #55CDB6; }
