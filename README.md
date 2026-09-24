@@ -12,6 +12,9 @@ pour vérifier qu'il détecte, et les leçons du terrain sont réécrites dans l
 *(Battle-tested agent skills in the open [SKILL.md](https://agentskills.io) format —
 for Claude Code, Codex CLI, Cursor and any compatible tool.)*
 
+Des skills pensés pour mon propre workflow avant tout — partagés tels
+quels : prenez, adaptez, faites-en les vôtres.
+
 <br/>
 
 [![Format SKILL.md](https://img.shields.io/badge/format-SKILL.md-58A6FF?style=flat-square)](https://agentskills.io)
@@ -142,10 +145,17 @@ vrai repo, jamais sur un exemple jouet — on y injecte des pathologies connues
 pour vérifier que le skill les attrape, et chaque défaut observé devient une
 ligne du SKILL.md.
 
-Le socle vient des [4 principes d'Andrej Karpathy](https://github.com/multica-ai/andrej-karpathy-skills) :
-un code meilleur est un code plus court, jamais au prix du comportement. Ce qui
-ne peut pas être prouvé part en rapport, pas en commit. Les autres inspirations
-sont créditées dans la [ROADMAP](ROADMAP.md).
+Le moteur vient d'Andrej Karpathy. Il a nommé le *vibe coding* — coder en
+acceptant ce que le modèle propose — et documenté ses pièges : les modèles
+font des assomptions silencieuses, sur-compliquent, gonflent les
+abstractions et touchent du code qu'ils ne comprennent pas. Les
+[4 principes](https://github.com/multica-ai/andrej-karpathy-skills) qui en
+découlent — réfléchir avant de coder, la simplicité d'abord, des
+changements chirurgicaux, une exécution guidée par des critères
+vérifiables — sont le socle de chaque skill de ce repo. Leur traduction
+opérationnelle ici : toute passe est gatée par les tests et le build du
+repo cible, et ce qui ne peut pas être prouvé part en rapport, pas en
+commit. Les autres inspirations sont créditées dans la [ROADMAP](ROADMAP.md).
 
 ## Licence
 
