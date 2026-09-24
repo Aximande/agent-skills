@@ -139,3 +139,4 @@ ligne du skill. Les inspirations sont créditées dans la [ROADMAP](ROADMAP.md).
 ## Licence
 
 [MIT](LICENSE). Le socle conceptuel hérite d'andrej-karpathy-skills (MIT).
+Un projet personnel d'[Alexandre Lavallée](https://alexandrelavallee.com).
