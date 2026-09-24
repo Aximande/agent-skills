@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="agent-skills — du vibecode au shippable" width="100%">
+  <img src="assets/banner.svg" alt="agent-skills, du vibecode au shippable" width="100%">
 </p>
 
 <div align="center">
@@ -9,10 +9,10 @@
 Chaque skill est mesuré sur un vrai repo avant publication : on sabote le code
 pour vérifier qu'il détecte, et les leçons du terrain sont réécrites dans le skill.
 
-*(Battle-tested agent skills in the open [SKILL.md](https://agentskills.io) format —
+*(Battle-tested agent skills in the open [SKILL.md](https://agentskills.io) format,
 for Claude Code, Codex CLI, Cursor and any compatible tool.)*
 
-Des skills pensés pour mon propre workflow avant tout — partagés tels
+Des skills pensés pour mon propre workflow avant tout, partagés tels
 quels : prenez, adaptez, faites-en les vôtres.
 
 <br/>
@@ -27,6 +27,19 @@ quels : prenez, adaptez, faites-en les vôtres.
 </div>
 
 ---
+
+## La philosophie
+
+Le moteur vient d'Andrej Karpathy. Il a nommé le *vibe coding* (coder en
+acceptant ce que le modèle propose) et documenté ses pièges : les modèles
+font des assomptions silencieuses, sur-compliquent, gonflent les
+abstractions et touchent du code qu'ils ne comprennent pas. Les
+[4 principes](https://github.com/multica-ai/andrej-karpathy-skills) qui en
+découlent sont le socle de chaque skill : réfléchir avant de coder, la
+simplicité d'abord, des changements chirurgicaux, une exécution guidée
+par des critères vérifiables. Leur traduction opérationnelle ici : toute
+passe est gatée par les tests et le build du repo cible, et ce qui ne
+peut pas être prouvé part en rapport, pas en commit.
 
 ## Le pipeline
 
@@ -44,7 +57,7 @@ flowchart LR
 
 | Skill | Rôle |
 |---|---|
-| [`spec-lite`](skills/spec-lite/SKILL.md) | Une page de critères d'acceptation avant de vibecoder — observables, exécutables tels quels par proof-run |
+| [`spec-lite`](skills/spec-lite/SKILL.md) | Une page de critères d'acceptation avant de vibecoder : observables, exécutables tels quels par proof-run |
 | [`proof-run`](skills/proof-run/SKILL.md) | Un vérificateur indépendant pilote la vraie app et embarque la preuve dans la PR |
 | [`safety-net`](skills/safety-net/SKILL.md) | Tests de caractérisation sur un repo non testé, prouvés par sabotage |
 | [`react-doctor`](skills/react-doctor/SKILL.md) | Diagnostic React/Next : pose le lint hooks, audite ce que le lint ne voit pas |
@@ -68,7 +81,7 @@ git clone https://github.com/Aximande/agent-skills.git
 cd agent-skills && ./install.sh
 ```
 
-`install.sh` symlinke les skills vers les emplacements standards — un seul
+`install.sh` symlinke les skills vers les emplacements standards : un seul
 exemplaire, mis à jour par `git pull` (`--copy` pour copier au lieu de symlinker).
 Seuls prérequis : un terminal et git. Première fois avec un agent IA ? Le
 [guide visuel](https://aximande.github.io/agent-skills/#install) reprend chaque
@@ -128,7 +141,7 @@ Copie les skills choisis comme fichiers éditables dans votre projet.
 <summary><strong>Autre agent (Gemini CLI, aider…)</strong></summary>
 <br/>
 
-Le SKILL.md est du markdown autoporteur — collez dans le prompt :
+Le SKILL.md est du markdown autoporteur. Collez dans le prompt :
 « Lis `skills/cleanup-pass/SKILL.md` et exécute exactement comme prescrit. »
 
 </details>
@@ -141,21 +154,10 @@ Pour un usage par projet plutôt que global : copiez `skills/<nom>/` dans le
 Un skill naît d'une session de grilling : des rounds de questions serrées
 jusqu'à ce que les décisions soient verrouillées. La v1 arrive avec son
 protocole de mesure, écrit avant le premier run. Le rodage se fait sur un
-vrai repo, jamais sur un exemple jouet — on y injecte des pathologies connues
+vrai repo, jamais sur un exemple jouet : on y injecte des pathologies connues
 pour vérifier que le skill les attrape, et chaque défaut observé devient une
-ligne du SKILL.md.
-
-Le moteur vient d'Andrej Karpathy. Il a nommé le *vibe coding* — coder en
-acceptant ce que le modèle propose — et documenté ses pièges : les modèles
-font des assomptions silencieuses, sur-compliquent, gonflent les
-abstractions et touchent du code qu'ils ne comprennent pas. Les
-[4 principes](https://github.com/multica-ai/andrej-karpathy-skills) qui en
-découlent — réfléchir avant de coder, la simplicité d'abord, des
-changements chirurgicaux, une exécution guidée par des critères
-vérifiables — sont le socle de chaque skill de ce repo. Leur traduction
-opérationnelle ici : toute passe est gatée par les tests et le build du
-repo cible, et ce qui ne peut pas être prouvé part en rapport, pas en
-commit. Les autres inspirations sont créditées dans la [ROADMAP](ROADMAP.md).
+ligne du SKILL.md. Toutes les inspirations sont créditées dans la
+[ROADMAP](ROADMAP.md).
 
 ## Licence
 

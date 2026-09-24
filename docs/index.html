@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>agent-skills — du vibecode au shippable</title>
+<title>agent-skills · du vibecode au shippable</title>
 <meta name="description" content="10 skills d'agent rodés sur de vrais repos, au format ouvert SKILL.md. Installables sur Claude Code, Claude, Codex CLI, Cursor et tout outil compatible.">
 <style>
   :root {
@@ -48,15 +48,8 @@
   h2 + p.lead { color: var(--muted); margin-bottom: 22px; max-width: 70ch; }
 
   /* ---- pipeline ---- */
-  .pipe { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--mono); font-size: 14px; margin: 18px 0 8px; }
-  .chip { background: var(--card); border: 1px solid var(--border); border-radius: 999px; padding: 5px 14px; color: var(--text); white-space: nowrap; }
-  a.chip:hover { border-color: var(--blue); text-decoration: none; }
-  .chip.you { border-style: dashed; color: var(--muted); font-style: italic; }
-  .chip.final { color: var(--lime); border-color: #2EA04366; }
-  .chip.soon { color: var(--subtle); border-style: dashed; }
-  .arrow { color: var(--subtle); }
-  .branch { color: var(--subtle); font-family: var(--mono); font-size: 13px; margin: 4px 0 0 12px; }
-  .branch .chip { font-size: 13px; padding: 3px 11px; }
+  .diagram { overflow-x: auto; margin: 18px 0 8px; }
+  .diagram svg { min-width: 880px; width: 100%; display: block; }
 
   /* ---- cards ---- */
   .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-top: 20px; }
@@ -110,7 +103,7 @@
       <div class="term">
         <div><span class="p">~/repo $ </span>claude</div>
         <div><span class="p">&gt; </span><span class="cmd">/cleanup-pass</span></div>
-        <div class="out"><span class="ok">✓</span> code plus court · 0 régression — gate tests/build vert</div>
+        <div class="out"><span class="ok">✓</span> code plus court · 0 régression · gate tests/build vert</div>
         <div><span class="p">&gt; </span><span class="cmd">/ship-check</span> <span class="cursor"></span></div>
       </div>
       <div class="wordmark">
@@ -125,41 +118,83 @@
   <h2>C'est quoi, un skill ?</h2>
   <p class="lead">
     Un skill est un fichier d'instructions expertes (<code>SKILL.md</code>, du simple
-    markdown) que votre agent IA — Claude, Codex, Cursor… — charge quand la tâche
+    markdown) que votre agent IA (Claude, Codex, Cursor…) charge quand la tâche
     correspond. Vous l'appelez par son nom (<code>/cleanup-pass</code>) ou en langage
     naturel (« nettoie ce repo »), et l'agent suit le protocole au lieu d'improviser.
     Ceux de ce repo ont une particularité : <b style="color:var(--text)">chacun est
-    rodé sur de vrais projets</b> — on sabote le code pour vérifier que le skill
+    rodé sur de vrais projets</b> : on sabote le code pour vérifier que le skill
     détecte, et chaque leçon du terrain est réécrite dedans.
   </p>
   <p class="lead" style="font-style:italic">
-    Des skills pensés pour mon propre workflow avant tout — partagés tels quels :
+    Des skills pensés pour mon propre workflow avant tout, partagés tels quels :
     prenez, adaptez, faites-en les vôtres.
+  </p>
+  <p class="lead">
+    Le moteur vient d'<a href="https://github.com/multica-ai/andrej-karpathy-skills">Andrej Karpathy</a>.
+    Il a nommé le <i>vibe coding</i> (coder en acceptant ce que le modèle propose)
+    et documenté ses pièges : assomptions silencieuses, sur-complication, abstractions
+    gonflées, code touché sans être compris. Les 4 principes qui en découlent sont le
+    socle de chaque skill : réfléchir avant de coder, la simplicité d'abord, des
+    changements chirurgicaux, une exécution guidée par des critères vérifiables.
+    Leur traduction ici : toute passe est gatée par les tests du repo cible, et ce qui
+    ne peut pas être prouvé part en rapport, pas en commit.
   </p>
 
   <!-- PIPELINE -->
-  <h2>Le pipeline — du vibecode au shippable</h2>
+  <h2>Le pipeline : du vibecode au shippable</h2>
   <p class="lead">Partir d'un projet codé à l'instinct qui « marche sur ma machine »
   et le rendre publiable, chaque étape gatée par une preuve.
   (<i>vibecode</i> n'est pas un skill : c'est vous.)</p>
-  <div class="pipe">
-    <a class="chip" href="#spec-lite">spec-lite</a><span class="arrow">→</span>
-    <span class="chip you">vibecode</span><span class="arrow">→</span>
-    <a class="chip" href="#proof-run">proof-run</a><span class="arrow">→</span>
-    <a class="chip" href="#safety-net">safety-net</a><span class="arrow">→</span>
-    <a class="chip" href="#cleanup-pass">cleanup-pass</a><span class="arrow">→</span>
-    <a class="chip" href="#docs-pass">docs-pass</a><span class="arrow">→</span>
-    <a class="chip final" href="#ship-check">ship-check</a>
+  <div class="diagram">
+  <svg viewBox="0 0 920 192" role="img" aria-label="Pipeline : spec-lite, vibecode, proof-run, safety-net, cleanup-pass, docs-pass, ship-check ; branches conditionnelles react-doctor (repo React) et fluid-pass (produit UI) entre safety-net et cleanup-pass">
+    <defs>
+      <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,0 L8,4 L0,8 z" fill="#6E7681"/>
+      </marker>
+    </defs>
+    <style>
+      .pl { fill: #161B22; stroke: #30363D; stroke-width: 1.5; }
+      .tx { fill: #E6EDF3; font: 14px ui-monospace, Menlo, monospace; text-anchor: middle; }
+      .edge { stroke: #6E7681; stroke-width: 1.5; fill: none; }
+      .cond { stroke-dasharray: 4 4; }
+      .lbl { fill: #8B949E; font: italic 11.5px ui-monospace, Menlo, monospace; text-anchor: middle; }
+      .diagram a:hover .pl { stroke: #58A6FF; }
+    </style>
+
+    <!-- flux principal -->
+    <a href="#spec-lite"><rect class="pl" x="8" y="31" width="100" height="34" rx="17"/><text class="tx" x="58" y="53">spec-lite</text></a>
+    <line class="edge" x1="112" y1="48" x2="128" y2="48" marker-end="url(#ah)"/>
+    <rect class="pl" x="134" y="31" width="92" height="34" rx="17" stroke-dasharray="5 4"/><text class="tx" x="180" y="53" style="font-style:italic;fill:#8B949E">vibecode</text>
+    <line class="edge" x1="230" y1="48" x2="246" y2="48" marker-end="url(#ah)"/>
+    <a href="#proof-run"><rect class="pl" x="252" y="31" width="100" height="34" rx="17"/><text class="tx" x="302" y="53">proof-run</text></a>
+    <line class="edge" x1="356" y1="48" x2="372" y2="48" marker-end="url(#ah)"/>
+    <a href="#safety-net"><rect class="pl" x="378" y="31" width="108" height="34" rx="17"/><text class="tx" x="432" y="53">safety-net</text></a>
+    <line class="edge" x1="490" y1="48" x2="506" y2="48" marker-end="url(#ah)"/>
+    <a href="#cleanup-pass"><rect class="pl" x="512" y="31" width="125" height="34" rx="17"/><text class="tx" x="574" y="53">cleanup-pass</text></a>
+    <line class="edge" x1="641" y1="48" x2="657" y2="48" marker-end="url(#ah)"/>
+    <a href="#docs-pass"><rect class="pl" x="663" y="31" width="100" height="34" rx="17"/><text class="tx" x="713" y="53">docs-pass</text></a>
+    <line class="edge" x1="767" y1="48" x2="783" y2="48" marker-end="url(#ah)"/>
+    <a href="#ship-check"><rect class="pl" x="789" y="31" width="108" height="34" rx="17" stroke="#2EA04366"/><text class="tx" x="843" y="53" fill="#7EE787">ship-check</text></a>
+
+    <!-- branches conditionnelles : safety-net → (react-doctor | fluid-pass) → cleanup-pass -->
+    <path class="edge cond" d="M 434 65 Q 412 82, 428 96" marker-end="url(#ah)"/>
+    <path class="edge cond" d="M 414 65 Q 362 108, 406 152" marker-end="url(#ah)"/>
+    <a href="#react-doctor"><rect class="pl" x="408" y="100" width="125" height="34" rx="17"/><text class="tx" x="470" y="122">react-doctor</text></a>
+    <a href="#fluid-pass"><rect class="pl" x="416" y="146" width="108" height="34" rx="17"/><text class="tx" x="470" y="168">fluid-pass</text></a>
+    <path class="edge cond" d="M 533 112 Q 566 102, 566 72" marker-end="url(#ah)"/>
+    <path class="edge cond" d="M 524 160 Q 606 142, 596 72" marker-end="url(#ah)"/>
+    <text class="lbl" x="452" y="88" style="text-anchor:start">si repo React</text>
+    <text class="lbl" x="368" y="120" style="text-anchor:end">si produit UI</text>
+    <text class="lbl" x="200" y="134">branches optionnelles,</text>
+    <text class="lbl" x="200" y="150">selon le projet</text>
+  </svg>
   </div>
-  <div class="branch">↳ repo React : <a class="chip" href="#react-doctor">react-doctor</a>
-    &nbsp;·&nbsp; produit UI : <a class="chip" href="#fluid-pass">fluid-pass</a>
-    <span class="arrow">— avant cleanup-pass</span></div>
 
   <!-- CARTES PIPELINE -->
   <div class="grid">
     <div class="card" id="spec-lite">
       <h3><span class="slash">/</span>spec-lite</h3>
-      <p class="role">Une page de critères d'acceptation avant de vibecoder — le « quoi et pourquoi » avant le « comment ».</p>
+      <p class="role">Une page de critères d'acceptation avant de vibecoder : le « quoi et pourquoi » avant le « comment ».</p>
       <p class="say">« Fais une spec » · « qu'est-ce qu'on construit exactement ? »</p>
       <p class="get"><b>Vous obtenez :</b> un SPEC.md d'une page, critères observables que proof-run exécute tels quels, vérifié par un agent frais.</p>
     </div>
@@ -191,7 +226,7 @@
       <h3><span class="slash">/</span>cleanup-pass</h3>
       <p class="role">Code plus court à comportement constant : dead code retiré, docstrings posées.</p>
       <p class="say">« Nettoie ce repo » · « épure ce code »</p>
-      <p class="get"><b>Vous obtenez :</b> des commits gatés par vos tests — aucune nouvelle failure tolérée.</p>
+      <p class="get"><b>Vous obtenez :</b> des commits gatés par vos tests, aucune nouvelle failure tolérée.</p>
     </div>
     <div class="card" id="docs-pass">
       <h3><span class="slash">/</span>docs-pass</h3>
@@ -232,18 +267,18 @@
   </div>
 
   <!-- INSTALLATION -->
-  <h2 id="install">Installer — même si c'est votre première fois</h2>
+  <h2 id="install">Installer, même si c'est votre première fois</h2>
   <p class="lead">Comptez deux minutes. Choisissez votre outil ci-dessous.</p>
 
   <div class="callout">
-    <b>Prérequis (une seule fois)</b> — un terminal (l'app <b>Terminal</b> sur Mac) et
+    <b>Prérequis (une seule fois)</b> : un terminal (l'app <b>Terminal</b> sur Mac) et
     <a href="https://git-scm.com/downloads">git</a> (souvent déjà installé : tapez
     <code>git --version</code> pour vérifier). C'est tout. Pas besoin de savoir coder :
     vous copiez-collez trois lignes.
   </div>
 
   <details open>
-    <summary>Claude Code <span class="hint">le terminal d'Anthropic — recommandé</span></summary>
+    <summary>Claude Code <span class="hint">le terminal d'Anthropic, recommandé</span></summary>
     <div class="dbody">
       <ol>
         <li><b>Ouvrez le Terminal</b> et collez :
@@ -251,7 +286,7 @@
 git clone https://github.com/Aximande/agent-skills.git
 cd agent-skills &amp;&amp; ./install.sh<button class="copy">copier</button></pre></li>
         <li><b>Vérifiez</b> : lancez <code>claude</code> dans n'importe quel projet et tapez
-          <code>/cleanup-pass</code> — le skill apparaît. Vous pouvez aussi parler
+          <code>/cleanup-pass</code> : le skill apparaît. Vous pouvez aussi parler
           normalement : « nettoie ce repo ».</li>
         <li><b>Mise à jour</b> plus tard : <code>git pull</code> dans le dossier
           <code>agent-skills</code>, rien d'autre (les skills sont des liens symboliques).</li>
@@ -275,14 +310,14 @@ cd agent-skills &amp;&amp; ./install.sh<button class="copy">copier</button></pre
   </details>
 
   <details>
-    <summary>Codex CLI <span class="hint">OpenAI — et tout outil du standard agent-skills</span></summary>
+    <summary>Codex CLI <span class="hint">OpenAI, et tout outil du standard agent-skills</span></summary>
     <div class="dbody">
       <ol>
         <li>Le même <code>./install.sh</code> que Claude Code installe aussi pour Codex
           (dossier <code>~/.agents/skills/</code>, le standard
           <a href="https://agentskills.io">agentskills.io</a>).</li>
         <li>Codex charge le skill automatiquement quand votre demande correspond à sa
-          description — dites simplement « nettoie ce repo ».</li>
+          description : dites simplement « nettoie ce repo ».</li>
       </ol>
     </div>
   </details>
@@ -318,27 +353,17 @@ du préflight à la livraison, sans sauter d'étape.<button class="copy">copier<
     <div class="step"><span class="n">01</span><b>Grilling</b>
       <p>Des rounds de questions serrées jusqu'à ce que chaque décision de design soit verrouillée.</p></div>
     <div class="step"><span class="n">02</span><b>v1 + protocole</b>
-      <p>Le SKILL.md naît avec son protocole de mesure — sabotage, précision, non-régression.</p></div>
+      <p>Le SKILL.md naît avec son protocole de mesure : sabotage, précision, non-régression.</p></div>
     <div class="step"><span class="n">03</span><b>Rodage réel</b>
       <p>Exécution sur un vrai repo, jamais un exemple jouet. On injecte des pathologies connues : le skill doit les attraper.</p></div>
     <div class="step"><span class="n">04</span><b>Leçons encodées</b>
       <p>Chaque défaut observé sur le terrain devient une ligne du skill. Alors seulement, on publie.</p></div>
   </div>
-  <p class="lead" style="margin-top:22px">
-    Le moteur vient d'<a href="https://github.com/multica-ai/andrej-karpathy-skills">Andrej Karpathy</a>.
-    Il a nommé le <i>vibe coding</i> — coder en acceptant ce que le modèle propose —
-    et documenté ses pièges : assomptions silencieuses, sur-complication, abstractions
-    gonflées, code touché sans être compris. Les 4 principes qui en découlent —
-    réfléchir avant de coder, la simplicité d'abord, des changements chirurgicaux,
-    une exécution guidée par des critères vérifiables — sont le socle de chaque skill.
-    Leur traduction ici : toute passe est gatée par les tests du repo cible, et ce qui
-    ne peut pas être prouvé part en rapport, pas en commit.
-  </p>
 
   <footer>
     <span><a href="https://github.com/Aximande/agent-skills">github.com/Aximande/agent-skills</a></span>
     <span>Format ouvert <a href="https://agentskills.io">SKILL.md</a></span>
-    <span>Licence MIT — socle : les 4 principes d'Andrej Karpathy</span>
+    <span>Licence MIT · socle : les 4 principes d'Andrej Karpathy</span>
   </footer>
 </div>
 
