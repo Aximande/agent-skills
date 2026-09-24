@@ -138,11 +138,13 @@ Copie les skills choisis comme fichiers éditables dans votre projet.
 </details>
 
 <details>
-<summary><strong>Autre agent (Gemini CLI, aider…)</strong></summary>
+<summary><strong>ChatGPT et tout autre chat (Gemini, Le Chat…)</strong></summary>
 <br/>
 
-Le SKILL.md est du markdown autoporteur. Collez dans le prompt :
-« Lis `skills/cleanup-pass/SKILL.md` et exécute exactement comme prescrit. »
+Le SKILL.md est du markdown autoporteur. Ouvrez-le sur GitHub (bouton Raw),
+copiez tout, collez dans la conversation avec la consigne « Lis ce document
+et exécute-le exactement comme prescrit », puis votre demande. Pour un usage
+durable dans ChatGPT, ajoutez le fichier à un Projet ou un GPT personnalisé.
 
 </details>
 

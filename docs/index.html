@@ -146,7 +146,7 @@
   et le rendre publiable, chaque étape gatée par une preuve.
   (<i>vibecode</i> n'est pas un skill : c'est vous.)</p>
   <div class="diagram">
-  <svg viewBox="0 0 920 192" role="img" aria-label="Pipeline : spec-lite, vibecode, proof-run, safety-net, cleanup-pass, docs-pass, ship-check ; branches conditionnelles react-doctor (repo React) et fluid-pass (produit UI) entre safety-net et cleanup-pass">
+  <svg viewBox="0 0 920 200" role="img" aria-label="Pipeline : spec-lite, vibecode, proof-run, safety-net, cleanup-pass, docs-pass, ship-check ; branches conditionnelles react-doctor (repo React) et fluid-pass (produit UI) entre safety-net et cleanup-pass">
     <defs>
       <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
         <path d="M0,0 L8,4 L0,8 z" fill="#6E7681"/>
@@ -176,17 +176,15 @@
     <line class="edge" x1="767" y1="48" x2="783" y2="48" marker-end="url(#ah)"/>
     <a href="#ship-check"><rect class="pl" x="789" y="31" width="108" height="34" rx="17" stroke="#2EA04366"/><text class="tx" x="843" y="53" fill="#7EE787">ship-check</text></a>
 
-    <!-- branches conditionnelles : safety-net → (react-doctor | fluid-pass) → cleanup-pass -->
-    <path class="edge cond" d="M 434 65 Q 412 82, 428 96" marker-end="url(#ah)"/>
-    <path class="edge cond" d="M 414 65 Q 362 108, 406 152" marker-end="url(#ah)"/>
-    <a href="#react-doctor"><rect class="pl" x="408" y="100" width="125" height="34" rx="17"/><text class="tx" x="470" y="122">react-doctor</text></a>
-    <a href="#fluid-pass"><rect class="pl" x="416" y="146" width="108" height="34" rx="17"/><text class="tx" x="470" y="168">fluid-pass</text></a>
-    <path class="edge cond" d="M 533 112 Q 566 102, 566 72" marker-end="url(#ah)"/>
-    <path class="edge cond" d="M 524 160 Q 606 142, 596 72" marker-end="url(#ah)"/>
-    <text class="lbl" x="452" y="88" style="text-anchor:start">si repo React</text>
-    <text class="lbl" x="368" y="120" style="text-anchor:end">si produit UI</text>
-    <text class="lbl" x="200" y="134">branches optionnelles,</text>
-    <text class="lbl" x="200" y="150">selon le projet</text>
+    <!-- détour optionnel : safety-net → [react-doctor | fluid-pass] → cleanup-pass -->
+    <path class="edge cond" d="M 424 65 C 410 78, 402 86, 400 96" marker-end="url(#ah)"/>
+    <path class="edge cond" d="M 616 98 C 620 86, 606 78, 596 72" marker-end="url(#ah)"/>
+    <rect x="372" y="100" width="270" height="86" rx="12" fill="none" stroke="#30363D" stroke-width="1.5" stroke-dasharray="5 5"/>
+    <text class="lbl" x="507" y="117">détour optionnel, selon le projet</text>
+    <text class="lbl" x="446" y="135">repo React :</text>
+    <text class="lbl" x="575" y="135">produit UI :</text>
+    <a href="#react-doctor"><rect class="pl" x="384" y="142" width="125" height="34" rx="17"/><text class="tx" x="446" y="164">react-doctor</text></a>
+    <a href="#fluid-pass"><rect class="pl" x="521" y="142" width="108" height="34" rx="17"/><text class="tx" x="575" y="164">fluid-pass</text></a>
   </svg>
   </div>
 
@@ -334,14 +332,24 @@ cd agent-skills &amp;&amp; ./install.sh<button class="copy">copier</button></pre
   </details>
 
   <details>
-    <summary>Sans rien installer <span class="hint">ChatGPT, Gemini, aider…</span></summary>
+    <summary>ChatGPT et tout autre chat <span class="hint">Gemini, Le Chat…</span></summary>
     <div class="dbody">
-      <p>Chaque <code>SKILL.md</code> est du markdown autoporteur. Ouvrez-le sur GitHub,
-      copiez tout, et collez dans votre outil avec :</p>
-      <pre>Lis ce document et exécute-le exactement comme prescrit,
-du préflight à la livraison, sans sauter d'étape.<button class="copy">copier</button></pre>
-      <p>Alternative avec Node installé : <code>npx skills add Aximande/agent-skills</code>
-      copie les skills choisis dans votre projet, pour l'agent de votre choix.</p>
+      <ol>
+        <li>Ouvrez le skill voulu sur GitHub (ex.
+          <a href="https://github.com/Aximande/agent-skills/blob/main/skills/cleanup-pass/SKILL.md">skills/cleanup-pass/SKILL.md</a>),
+          cliquez <b>Raw</b>, copiez tout.</li>
+        <li><b>Collez dans la conversation</b> avec cette consigne, puis votre demande :
+<pre>Lis ce document et exécute-le exactement comme prescrit,
+du préflight à la livraison, sans sauter d'étape.<button class="copy">copier</button></pre></li>
+        <li><b>Pour un usage durable dans ChatGPT</b> : créez un Projet (ou un GPT
+          personnalisé) et ajoutez le fichier <code>SKILL.md</code> à ses fichiers ou
+          instructions. Le skill s'applique alors à toutes les conversations du projet.</li>
+        <li>Un chat ne voit pas vos fichiers locaux : collez aussi le code ou le
+          document concerné (ou travaillez sur un dépôt connecté quand l'outil le
+          permet).</li>
+      </ol>
+      <p>Avec Node installé, <code>npx skills add Aximande/agent-skills</code> copie
+      aussi les skills comme fichiers dans un projet, pour l'agent de votre choix.</p>
     </div>
   </details>
 
