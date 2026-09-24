@@ -6,8 +6,8 @@
 
 **Des skills rodés, pas des prompts.**
 
-[![Format SKILL.md](https://img.shields.io/badge/format-SKILL.md-1FB5BD?style=flat-square)](https://agentskills.io)
-![Skills](https://img.shields.io/badge/skills-11-1FB5BD?style=flat-square)
+[![Format SKILL.md](https://img.shields.io/badge/format-SKILL.md-1FA48E?style=flat-square)](https://agentskills.io)
+![Skills](https://img.shields.io/badge/skills-11-1FA48E?style=flat-square)
 ![Compatible](https://img.shields.io/badge/Claude_Code_·_Codex_·_Cursor-compatible-778DA9?style=flat-square)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-778DA9?style=flat-square)](LICENSE)
 

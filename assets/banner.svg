@@ -4,8 +4,8 @@
     .muted  { fill: #778DA9; }
     .subtle { fill: #6B7686; }
     .bright { fill: #FFFFFF; }
-    .accent  { fill: #1FB5BD; }
-    .accent-clair   { fill: #84D6DB; }
+    .accent  { fill: #1FA48E; }
+    .accent-clair   { fill: #55CDB6; }
   </style>
 
   <!-- carte terminal -->
@@ -31,7 +31,7 @@
   <text x="52" y="218" font-size="16">
     <tspan class="muted">&gt; </tspan><tspan class="accent-clair" font-weight="bold">/ship-check</tspan>
   </text>
-  <rect x="182" y="204" width="9" height="17" fill="#84D6DB">
+  <rect x="182" y="204" width="9" height="17" fill="#55CDB6">
     <animate attributeName="opacity" values="1;1;0;0" dur="1.2s" repeatCount="indefinite"/>
   </rect>
 
